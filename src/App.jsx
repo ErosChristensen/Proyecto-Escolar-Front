@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import Noticias_Inicio from './components/Noticias_Inicio'
 import './App.css'
 
 function App() {
   return (
     <>
-    <div className='bg-pink-200 h-20 w-20'>
-          <p>Hola </p>
+    <div className=''>
+      <Noticias_Inicio />
     </div>
     </>
   )
