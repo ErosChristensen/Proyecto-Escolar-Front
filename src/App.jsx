@@ -1,19 +1,21 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-{/*import Noticias_Inicio from './components/Noticias_Inicio'*/}
 import './App.css'
-import Footer from './components/Footer'
+{/*import Noticias_Inicio from './components/Noticias_Inicio'
+import Footer from './components/Footer'*/}
+import Header_Inicio from './components/Header_Inicio'
+
+
 
 function App() {
   return (
     <>
     <div className=''>
-      {/* <Noticias_Inicio /> */}
-       <Footer />
+   {/*   <Noticias_Inicio /> 
+      <Footer />*/}
+      <Header_Inicio />
     </div>
-    
-       
     
     </>
   )

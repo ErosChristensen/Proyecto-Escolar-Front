@@ -1,6 +1,6 @@
 import { FaFacebookF, FaInstagram, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 
-const Footer = () => {
+function Footer() {
     return (
         <footer className="bg-black text-white max-h-30 py-20 px-60 flex justify-between items-center">
             <div className="space-y-2">
