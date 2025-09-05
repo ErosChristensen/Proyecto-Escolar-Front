@@ -4,9 +4,9 @@ import { GiSchoolBag } from "react-icons/gi";
 
 function Header_Inicio() {
   return (
-    <header className="bg-black text-white flex items-center justify-between max-y- px-60 py-10">
+    <header className="bg-black text-white flex items-center justify-between px-30 py-5">
       
-      <div className="flex space-x-4">
+      <div className="flex space-x-5">
         <a
           href="https://facebook.com"
           target="_blank"
