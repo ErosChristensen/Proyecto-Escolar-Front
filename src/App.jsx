@@ -8,14 +8,13 @@ import Inicio from './components/Inicio'
 import Header_Inicio from './components/Header_Inicio'
 
 
-
 function App() {
   return (
     <>
     <div className=''>
     <Header_Inicio />
       {/*<Noticias_Inicio /> */}  
-      <Inicio/>
+      <Inicio/> 
       <Footer />
      
     </div>
