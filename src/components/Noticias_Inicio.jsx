@@ -1,49 +1,16 @@
 import React from "react";
-import "../styles/noticias.css"; 
 import logo from "../assets/img/EscudoEscuelaSinFondo.png";
+
 function Noticias_Inicio() {
- return <>
-
-
-  <div class="top-bar">
-    <div class="left-icons">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook--v1.png" alt="Facebook"/>
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"/>
-    </div>
-    <div class="right-icons">
-      <img src="https://img.icons8.com/ios-filled/24/ffffff/university.png" alt="Campus Virtual" />
-      <span>Campus Virtual</span>
-    </div>
-  </div>
-
- 
-  <div class="main-header">
-    <div class="logo">
-      <img src={logo} alt="Logo Escuela"/>
-      <div>
-        <div><strong>EEST N1</strong></div>
-        <div>REPUBLICA DE MEXICO</div>
+  return (
+    <>
+    <div className="bg-[#0a501a] h-50 w-full">
+        <div className="bg-[#0a501a] w-full h-[350px] text-white text-center px-5 pt-[80px] pb-[20px] transform -skew-y-[3deg]">
+        <h1 className="text-[48px] transform skew-y-[3deg]">NOTICIAS</h1>
       </div>
-    </div>
-    <nav class="nav-menu">
-      <a href="#">Inicio</a>
-      <a href="#" class="active">Noticias</a>
-      <a href="#">Modalidades</a>
-      <a href="#">Institucion</a>
-    </nav>
-  </div>
-
-
-  <div class="noticias-section">
-    <h1>NOTICIAS</h1>
-  </div>
-
-
-
-</>
-
-    
-
+      </div>
+    </>
+  );
 }
 
 export default Noticias_Inicio;
