@@ -17,7 +17,6 @@ function App() {
     <>
     <div className=''>
       <Header_Inicio />
-      
       <Inicio_Principal/> 
       <Ultimas_Novedades />
       <Inicio_Modalidades />
