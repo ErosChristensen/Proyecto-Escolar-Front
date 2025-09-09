@@ -2,20 +2,30 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-{/*import Noticias_Inicio from './components/Noticias_Inicio'*/}
 import Footer from './components/Footer'
-import Inicio from './components/Inicio'
+import Inicio_Principal from './components/Inicio_Principal'
 import Header_Inicio from './components/Header_Inicio'
-
+import Ultimas_Novedades from './components/Inicio_Novedades' 
+import Inicio_Modalidades from './components/Inicio_Modalidades'
+import Inicio_Talleres from './components/Inicio_Talleres'
+import Inicio_Banner from './components/Inicio_Banner'  
+import Inicio_Preguntas from './components/Inicio_Preguntas'
+import Nav from './components/Nav'
 
 function App() {
   return (
     <>
     <div className=''>
-    <Header_Inicio />
-      {/*<Noticias_Inicio /> */}  
-      <Inicio/> 
+      <Header_Inicio />
+      
+      <Inicio_Principal/> 
+      <Ultimas_Novedades />
+      <Inicio_Modalidades />
+      <Inicio_Talleres />
+      <Inicio_Banner /> 
+      <Inicio_Preguntas />
       <Footer />
+     
      
     </div>
     
