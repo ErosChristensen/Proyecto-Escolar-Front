@@ -3,7 +3,7 @@ import logo from '../assets/img/EscudoEscuelaSinFondo.png';
 
 function Nav() {
     return (
-           <div className="flex justify-between items-center px-10 py-5 text-xl">
+           <div className="flex justify-between items-center px-10 py-5 mb-2 text-xl">
                   <div className="flex items-center gap-3">
                     <img src={logo} alt="Logo" className="w-15 h-15" />
                     <div className="text-white font-bold leading-tight">

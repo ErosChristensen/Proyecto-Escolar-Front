@@ -6,7 +6,7 @@ import Noticias_Contenido from './components/Noticias_Contenido'
 import './App.css'
 import Footer from './components/Footer'
 import Inicio_Principal from './components/Inicio_Principal'
-import Header_Inicio from './components/Header_Inicio'
+import Header from './components/Header'
 import Ultimas_Novedades from './components/Inicio_Novedades' 
 import Inicio_Modalidades from './components/Inicio_Modalidades'
 import Inicio_Talleres from './components/Inicio_Talleres'
@@ -17,15 +17,12 @@ import Nav from './components/Nav'
 function App() {
   return (
     <>
-    <div className=''>
-      <Inicio_Principal/> 
-      <Ultimas_Novedades />
-      <Inicio_Modalidades />
-      <Inicio_Talleres />
-      <Inicio_Banner /> 
-      <Inicio_Preguntas />
+    <Header />
+    <div className=' w-full mb-20'>
+    
+      </div>
+
       <Footer />
-         </div>
     
     </>
   )
