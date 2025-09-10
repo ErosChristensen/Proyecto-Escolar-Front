@@ -13,7 +13,7 @@ function Nav() {
                   </div>
         
                   <nav className="flex gap-8 text-white font-semibold">
-                    <a href="#" className="text-orange-400">Inicio</a>
+                    <a href="#">Inicio</a>
                     <a href="#">Noticias</a>
                     <a href="#">Modalidades</a>
                     <a href="#">Institución</a>

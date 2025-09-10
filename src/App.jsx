@@ -10,7 +10,7 @@ import Inicio_Modalidades from './components/Inicio_Modalidades'
 import Inicio_Talleres from './components/Inicio_Talleres'
 import Inicio_Banner from './components/Inicio_Banner'  
 import Inicio_Preguntas from './components/Inicio_Preguntas'
-import Nav from './components/Nav'
+
 
 function App() {
   return (
@@ -24,8 +24,6 @@ function App() {
       <Inicio_Banner /> 
       <Inicio_Preguntas />
       <Footer />
-     
-     
     </div>
     
     </>

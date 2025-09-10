@@ -6,7 +6,7 @@ import Nav from "./Nav";
 function Inicio_Principal() {
     return(
   <div
-      className="relative h-full w-full bg-cover bg-center"
+      className="relative h-210 w-full bg-cover bg-center"
       style={{ backgroundImage: `url(${fondo})` }}
     >
       <div className="absolute inset-0 bg-black/40"></div>
