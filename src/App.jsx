@@ -19,7 +19,7 @@ import Inicio_Preguntas from './components/Inicio_Preguntas'
 import Noticias_Inicio from './components/Noticias_Inicio'
 import Noticias_Contenido from './components/Noticias_Contenido'
 import Noticias_elegida from './components/Noticias_elegida'
-import Ultimas_Novedades from './components/Inicio_Novedades' 
+import Inicio_Novedades from './components/Inicio_Novedades' 
 
 //Footer
 import Footer from './components/Footer'

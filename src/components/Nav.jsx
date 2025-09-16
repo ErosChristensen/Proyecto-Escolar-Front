@@ -14,7 +14,7 @@ function Nav() {
         
                   <nav className="flex gap-8 text-white font-semibold">
                     <a href="#">Inicio</a>
-                    <a href="#">Noticias</a>
+                    <a href="">Noticias</a>
                     <a href="#">Modalidades</a>
                     <a href="#">Institución</a>
                   </nav>
