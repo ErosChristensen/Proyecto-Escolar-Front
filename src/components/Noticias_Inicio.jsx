@@ -1,6 +1,8 @@
 import React from "react";
 import logo from "../assets/img/EscudoEscuelaSinFondo.png";
 import Nav from "../components/Nav.jsx";
+import Noticias_Contenido from "./Noticias_Contenido.jsx";
+
 function Noticias_Inicio() {
   return (
     <>
@@ -10,6 +12,8 @@ function Noticias_Inicio() {
         <h1 className="text-[48px] transform skew-y-[3deg]">NOTICIAS</h1>
       </div>
       </div>
+      <Noticias_Contenido />
+
     </>
   );
 }
