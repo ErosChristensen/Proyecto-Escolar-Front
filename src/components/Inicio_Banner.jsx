@@ -4,7 +4,7 @@ function Inicio_Banner() {
   return (
     <div
       className="relative h-160 bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: "url('src/assets/InicioBanner.png')" }}
+      style={{ backgroundImage: "url('src/assets/img/InicioBanner.png')" }}
     >
 
       <div className="relative text-center text-white px-4">

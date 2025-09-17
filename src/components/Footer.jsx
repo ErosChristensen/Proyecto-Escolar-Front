@@ -23,9 +23,9 @@ function Footer() {
                         <FaPhoneAlt />
                         <span>+54 2281 5748349</span>
                     </a>
-                    <a href="mailto:escuelatecnica@fisj.com" className="flex items-center space-x-2 hover:text-gray-400" >
+                    <a href="mailto:eest1benitojuarez@abc.gob.ar" className="flex items-center space-x-2 hover:text-gray-400" >
                         <FaEnvelope />
-                        <span>escuelatecnica@gmail.com</span>
+                        <span>eest1benitojuarez@abc.gob.ar</span>
                     </a>
                 </div>
             </div>
