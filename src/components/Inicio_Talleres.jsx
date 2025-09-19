@@ -1,7 +1,7 @@
-import Carpinteria from "../assets/img/InicioTalleres1.png";
-import Herreria from "../assets/img/InicioTalleres2.png";
-import Electricidad from "../assets/img/InicioTalleres3.png";
-import Hojalateria from "../assets/img/InicioTalleres4.png";
+import Carpinteria from "../assets/icons/InicioTalleres1.png";
+import Herreria from "../assets/icons/InicioTalleres2.png";
+import Electricidad from "../assets/icons/InicioTalleres3.png";
+import Hojalateria from "../assets/icons/InicioTalleres4.png";
 
  function Inicio_Talleres() {
   const talleres = [

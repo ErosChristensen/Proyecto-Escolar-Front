@@ -2,7 +2,7 @@ import React from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { GiSchoolBag } from "react-icons/gi";
 
-function Header_Inicio() {
+function Header() {
   return (
     <header className="bg-black text-white flex items-center justify-between px-30 py-5">
       
@@ -35,4 +35,4 @@ function Header_Inicio() {
   );
 }
 
-export default Header_Inicio;
+export default Header;
