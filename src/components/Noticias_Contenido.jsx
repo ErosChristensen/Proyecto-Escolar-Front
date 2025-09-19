@@ -1,49 +1,52 @@
-import { useState } from "react";
-import Noticias_elegida from "./Noticias_elegida";
-import img1 from "../assets/img/InicioModalidades.png";
-import img2 from "../assets/img/InicioNovedades2.png";
-import img3 from "../assets/img/InicioNovedades3.png"
+import { useState, useEffect } from "react"; // Importamos hooks de React
+import Noticias_elegida from "./Noticias_elegida"; // Importamos el componente del modal (detalle de la noticia)
+
 export default function Noticias_Contenido() {
+  // Estado para guardar las noticias traídas desde el backend
+  const [noticias, setNoticias] = useState([]);
+
+  // Estado para guardar cuál noticia se seleccionó (para abrir el modal)
   const [noticiaSeleccionada, setNoticiaSeleccionada] = useState(null);
 
-  const noticias = [
-    {
-      titulo: "Alumnos participarán en Olimpiadas de Matemática",
-      fecha: "2025-02-21",
-      descripcion:
-        "Representantes de nuestra institución competirán en la instancia regional de las Olimpiadas de Matemática, mostrando dedicación y talento.",
-      multimedia: [img1, img2],
-    },
-    {
-      titulo: "Nuevo equipamiento para el laboratorio de ciencias",
-      fecha: "2025-02-20",
-      descripcion:
-        "Gracias al aporte de la cooperadora, se incorporó equipamiento moderno que permitirá mejorar las prácticas en física y química.",
-      multimedia: [img2],
-    },
-    {
-      titulo: "Taller de Robótica Educativa para estudiantes",
-      fecha: "2025-02-20",
-      descripcion:
-        "Se abre la inscripción para el nuevo taller de robótica, fomentando la creatividad y el trabajo en equipo con tecnología.",
-      multimedia: [img3],
-    },
-  ];
+  // Hook que se ejecuta una sola vez al montar el componente
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        // Hacemos la llamada a la API que devuelve un array de noticias
+        const res = await fetch("https://tu-api.com/api/noticias");
+        const data = await res.json(); // Convertimos la respuesta a JSON
+
+        // Guardamos las noticias en el estado
+        setNoticias(data);
+      } catch (err) {
+        // Si algo sale mal, mostramos el error por consola
+        console.error("Error al cargar las noticias:", err);
+      }
+    };
+
+    // Llamamos a la función que hace el fetch
+    fetchNoticias();
+  }, []); // El array vacío significa que esto se ejecuta solo una vez
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-24 mt-32">
+      {/* Contenedor de las tarjetas de noticias */}
+      <div className="flex flex-wrap justify-center gap-10 md:gap-24 mt-32 px-4">
+        {/* Recorremos cada noticia y la mostramos en una tarjeta */}
         {noticias.map((noti, idx) => (
           <div
-            key={idx}
-            className="bg-white rounded-lg shadow-md w-96 flex flex-col overflow-hidden cursor-pointer"
-            onClick={() => setNoticiaSeleccionada(noti)}
+            key={noti.id || idx} // Usamos el ID de la noticia si existe, si no, el índice
+            className="bg-white rounded-lg shadow-md w-full sm:w-[22rem] flex flex-col overflow-hidden cursor-pointer"
+            onClick={() => setNoticiaSeleccionada(noti)} // Al hacer click, abrimos el modal con esa noticia
           >
+            {/* Mostramos la primera imagen del array multimedia */}
             <img
-              src={noti.multimedia[0]}
+              src={noti.multimedia?.[0]} // usamos el primer archivo multimedia si existe
               alt={noti.titulo}
               className="w-full h-44 object-cover bg-blue-100"
             />
+
+            {/* Contenido textual de la tarjeta */}
             <div className="p-5">
               <div className="font-bold text-lg mb-2">{noti.titulo}</div>
               <div className="text-orange-600 font-bold text-sm mb-2">{noti.fecha}</div>
@@ -53,10 +56,11 @@ export default function Noticias_Contenido() {
         ))}
       </div>
 
+      {/* Si hay una noticia seleccionada, mostramos el componente modal */}
       {noticiaSeleccionada && (
         <Noticias_elegida
           noticia={noticiaSeleccionada}
-          onClose={() => setNoticiaSeleccionada(null)}
+          onClose={() => setNoticiaSeleccionada(null)} // Al cerrar el modal, limpiamos la selección
         />
       )}
     </>
