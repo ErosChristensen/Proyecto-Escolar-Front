@@ -1,0 +1,101 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fbfaf9;
+  margin: 0;
+}
+
+.page-cont {
+  display: flex;
+  justify-content: space-between; /* texto a la izquierda, form a la derecha */
+  align-items: center;
+  height: 100vh;
+  padding: 40px;
+  gap: 60px;
+}
+
+/* TEXTO */
+.text-container {
+  flex: 1;
+  max-width: 500px;
+}
+
+.text-container h1 {
+  font-size: 42px;       
+  color: #ff914d;     
+  margin-bottom: 20px;
+  /* font-weight: bold; */
+}
+
+.text-container p {
+  font-size: 20px;       /* más grande */
+  line-height: 1.8;
+  color: #444;
+}
+
+/* FORMULARIO */
+.form-container {
+  flex: 1;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.forgot-password {
+  text-align: center;
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.continue-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff914d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.continue-button:hover {
+  background-color: #e57f3a;
+}
+
+/* RESPONSIVE: en celulares se apilan */
+@media (max-width: 900px) {
+  .page-container {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .text-container {
+    max-width: 100%;
+  }
+
+  .form-container {
+    max-width: 100%;
+  }
+}
