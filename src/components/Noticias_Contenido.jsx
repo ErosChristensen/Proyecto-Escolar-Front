@@ -9,25 +9,32 @@ export default function Noticias_Contenido() {
   const [noticiaSeleccionada, setNoticiaSeleccionada] = useState(null);
 
   // Hook que se ejecuta una sola vez al montar el componente
-  useEffect(() => {
-    const fetchNoticias = async () => {
-      try {
-        // Hacemos la llamada a la API que devuelve un array de noticias
-        const res = await fetch("http://localhost:3000/api/noticias");
-        const data = await res.json(); // Convertimos la respuesta a JSON
+useEffect(() => {
+  const fetchNoticias = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/noticias");
+      const data = await res.json();
 
-        // Guardamos las noticias en el estado
-        setNoticias(data);
-      } catch (err) {
-        // Si algo sale mal, mostramos el error por consola
-        console.error("Error al cargar las noticias:", err);
-      }
-    };
+const normalizarNoticia = (n) => ({
+  ...n,
+  multimedia: [n.imagen1, n.imagen2, n.imagen3]
+    .filter(Boolean)
+    .map(path => `http://localhost:3000${path}`),
+});
 
-    // Llamamos a la función que hace el fetch
-    fetchNoticias();
-  }, []); // El array vacío significa que esto se ejecuta solo una vez
+
+      setNoticias((data.items || []).map(normalizarNoticia)); // <- solo esto
+    } catch (err) {
+      console.error("Error al cargar las noticias:", err);
+    }
+  };
+
+  fetchNoticias();
+}, []);
+
+// El array vacío significa que esto se ejecuta solo una vez
 // Función para dar formato a la fecha
+
 function formatearFecha(fechaStr) {
   const fecha = new Date(fechaStr);
   const dia = fecha.getDate().toString().padStart(2, "0");
@@ -48,8 +55,7 @@ function formatearFecha(fechaStr) {
           >
             {/* Mostramos la primera imagen del array multimedia */}
             <img
-              src={noti.multimedia?.[0]} // usamos el primer archivo multimedia si existe
-              alt={noti.titulo}
+             src={noti.multimedia?.[0]} alt={noti.titulo}
               className="w-full h-44 object-cover bg-blue-100"
             />
 
