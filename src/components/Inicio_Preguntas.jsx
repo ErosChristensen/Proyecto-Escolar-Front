@@ -28,7 +28,7 @@ function Inicio_Preguntas() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 m-30">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-green-700 text-center mb-10">
         PREGUNTAS FRECUENTES
       </h2>

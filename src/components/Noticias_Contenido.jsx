@@ -13,7 +13,7 @@ export default function Noticias_Contenido() {
     const fetchNoticias = async () => {
       try {
         // Hacemos la llamada a la API que devuelve un array de noticias
-        const res = await fetch("https://tu-api.com/api/noticias");
+        const res = await fetch("http://localhost:3000/api/noticias");
         const data = await res.json(); // Convertimos la respuesta a JSON
 
         // Guardamos las noticias en el estado
@@ -27,11 +27,18 @@ export default function Noticias_Contenido() {
     // Llamamos a la función que hace el fetch
     fetchNoticias();
   }, []); // El array vacío significa que esto se ejecuta solo una vez
-
+// Función para dar formato a la fecha
+function formatearFecha(fechaStr) {
+  const fecha = new Date(fechaStr);
+  const dia = fecha.getDate().toString().padStart(2, "0");
+  const mes = (fecha.getMonth() + 1).toString().padStart(2, "0");
+  const anio = fecha.getFullYear();
+  return `${dia}-${mes}-${anio}`;
+}
   return (
     <>
       {/* Contenedor de las tarjetas de noticias */}
-      <div className="flex flex-wrap justify-center gap-10 md:gap-24 mt-32 px-4">
+      <div className="flex flex-wrap justify-center gap-10 md:gap-24 mt-32 px-4 mb-40">
         {/* Recorremos cada noticia y la mostramos en una tarjeta */}
         {noticias.map((noti, idx) => (
           <div
@@ -49,8 +56,8 @@ export default function Noticias_Contenido() {
             {/* Contenido textual de la tarjeta */}
             <div className="p-5">
               <div className="font-bold text-lg mb-2">{noti.titulo}</div>
-              <div className="text-orange-600 font-bold text-sm mb-2">{noti.fecha}</div>
-              <div className="text-gray-600 text-sm">{noti.descripcion}</div>
+              <div className="text-orange-600 font-bold text-sm mb-2">{formatearFecha(noti.fecha)}</div>
+              <div className="text-gray-600 text-sm">{noti.subtitulo}</div>
             </div>
           </div>
         ))}
