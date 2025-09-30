@@ -1,31 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom"; 
-import InicioNovedades1 from "../assets/img/InicioNovedades1.png";
-import InicioNovedades2 from "../assets/img/InicioNovedades2.png";
-import InicioNovedades3 from "../assets/img/InicioNovedades3.png";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const noticias = [
-  {
-    id: 1,
-    titulo: "REGRESO A CLASES LUEGO DE VACACIONES DE INVIERNO",
-    fecha: "FEB 28-2025",
-    img: InicioNovedades1,
-  },
-  {
-    id: 2,
-    titulo: "PARTICIPACION DE CHICOS DE PROGRAMACION EN OLIMPIADAS",
-    fecha: "FEB 28-2025",
-    img: InicioNovedades2,
-  },
-  {
-    id: 3,
-    titulo: "NUEVAS MAQUINARIAS PARA ELECTROMECANICA",
-    fecha: "FEB 28-2025",
-    img: InicioNovedades3,
-  },
-];
+function Inicio_Novedades() {
+  const [noticias, setNoticias] = useState([]); // estado para guardar lo que viene del back
+  const [loading, setLoading] = useState(true); // para mostrar un loader si hace falta
+  const [error, setError] = useState(null);
 
-function Ultimas_Novedades() {
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/noticias"); // <-- tu endpoint del back
+        if (!res.ok) throw new Error("Error al cargar noticias");
+        const data = await res.json();
+        setNoticias(data); // guardamos en el estado
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNoticias();
+  }, []);
+
+  if (loading) {
+    return <p className="text-center py-20">Cargando noticias...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center py-20 text-red-600">{error}</p>;
+  }
+
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 text-center bg-gray-50">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-12 uppercase text-gray-800">
@@ -39,7 +44,7 @@ function Ultimas_Novedades() {
             className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
           >
             <img
-              src={item.img}
+              src={item.img} // el back debería mandarte la URL de la imagen
               alt={item.titulo}
               className="w-full h-56 object-cover"
             />
@@ -57,7 +62,7 @@ function Ultimas_Novedades() {
 
       <div className="mt-12">
         <Link
-          to="/noticias" 
+          to="/noticias"
           className="inline-block bg-green-700 hover:bg-green-800 text-white font-semibold px-8 py-3 rounded-lg shadow-md transition"
         >
           VER TODAS LAS NOTICIAS
@@ -67,4 +72,4 @@ function Ultimas_Novedades() {
   );
 }
 
-export default Ultimas_Novedades;
+export default Inicio_Novedades;
