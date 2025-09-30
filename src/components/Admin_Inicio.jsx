@@ -6,7 +6,6 @@ function Admin_Incio() {
   return (
     <div className="p-8">
       {!editando ? (
-        // Pantalla inicial
         <div>
           <h2 className="text-2xl font-bold mb-6">INFORMACION DE INICIO</h2>
           <button
@@ -17,25 +16,24 @@ function Admin_Incio() {
           </button>
         </div>
       ) : (
-        // Pantalla de edición (perfil administrador)
+  
         <div className="space-y-6">
           <h2 className="text-2xl font-bold mb-6">INFORMACION DE INICIO</h2>
 
-          {/* Botón Guardar */}
           <button
             onClick={() => setEditando(false)}
-            className="px-6 py-2 bg-purple-500 text-white font-bold rounded-md hover:bg-purple-600 transition"
+            className="px-6 py-2 border-orange-400 bg-orange-400 hover:bg-orange-300 hover:text-white transition text-white font-bold rounded-md"
           >
             GUARDAR
           </button>
 
-          {/* Ejemplo de secciones con inputs */}
           <div className="space-y-4">
             <input
               type="text"
               defaultValue="TECNICOS EN EL CAMPO DE LA PROGRAMACION Y ELECTROMECANICA"
               className="w-full border-2 border-orange-400 rounded-full px-4 py-2"
             />
+
 
             <div className="flex flex-wrap gap-3">
               <input
@@ -48,7 +46,10 @@ function Admin_Incio() {
                 defaultValue="Programacion"
                 className="border-2 border-orange-400 rounded-full px-4 py-2"
               />
-              <div className="">
+            </div>
+
+          
+            <div className="flex flex-wrap gap-3">
               <input
                 type="text"
                 defaultValue="Carpintería"
@@ -59,25 +60,23 @@ function Admin_Incio() {
                 defaultValue="Herreria"
                 className="border-2 border-orange-400 rounded-full px-4 py-2"
               />
-               <input
+              <input
                 type="text"
                 defaultValue="Electricidad"
                 className="border-2 border-orange-400 rounded-full px-4 py-2"
               />
-               <input
+              <input
                 type="text"
                 defaultValue="Hojalateria"
                 className="border-2 border-orange-400 rounded-full px-4 py-2"
               />
-              </div>
             </div>
           </div>
 
-          {/* Ejemplo de preguntas con textarea */}
           <div className="space-y-2">
             <h3 className="font-bold">¿La escuela tiene uniforme?</h3>
             <textarea
-              defaultValue="Sí, los alumnos deben asistir con uniforme reglamentario."
+              defaultValue="Sí, la escuela posée un código de vestimenta. Este se basa en los colores azules, blancos, y negros. También ofrecemos la posibilidad de adquirir con la vestimenta oficial con el logo del establecimiento."
               className="w-full border-2 border-orange-400 rounded-md p-3"
               rows={3}
             />
@@ -91,7 +90,7 @@ function Admin_Incio() {
               rows={3}
             />
           </div>
-        
+
           <div className="space-y-2">
             <h3 className="font-bold">¿Con qué tipo de título egresan los alumnos?</h3>
             <textarea
@@ -100,7 +99,7 @@ function Admin_Incio() {
               rows={3}
             />
           </div>
-    
+
           <div className="space-y-2">
             <h3 className="font-bold">¿Es doble jornada?</h3>
             <textarea
@@ -110,27 +109,26 @@ function Admin_Incio() {
             />
           </div>
 
-          {/* Datos de contacto */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap gap-3">
             <input
               type="text"
               defaultValue="Link Facebook"
-              className="border-2 border-orange-400 rounded-full px-4 py-2"
+              className="border-2 border-orange-400 rounded-full px-4 py-2 w-1/2"
             />
             <input
               type="text"
               defaultValue="Link Instagram"
-              className="border-2 border-orange-400 rounded-full px-4 py-2"
+              className="border-2 border-orange-400 rounded-full px-4 py-2 w-1/2"
             />
             <input
               type="text"
               defaultValue="+54 2281 876349"
-              className="border-2 border-orange-400 rounded-full px-4 py-2"
+              className="border-2 border-orange-400 rounded-full px-4 py-2 w-1/2"
             />
             <input
               type="email"
               defaultValue="escuelatecnica@info.com"
-              className="border-2 border-orange-400 rounded-full px-4 py-2"
+              className="border-2 border-orange-400 rounded-full px-4 py-2 w-1/2"
             />
           </div>
         </div>
