@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Inicio_Novedades() {
-  const [noticias, setNoticias] = useState([]); // estado para guardar lo que viene del back
-  const [loading, setLoading] = useState(true); // para mostrar un loader si hace falta
+  const [noticias, setNoticias] = useState([]); 
+  const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/noticias"); // <-- tu endpoint del back
+        const res = await fetch("http://localhost:3000/api/noticias");
         if (!res.ok) throw new Error("Error al cargar noticias");
         const data = await res.json();
-        setNoticias(data); // guardamos en el estado
+        setNoticias(data); 
       } catch (err) {
         setError(err.message);
       } finally {
@@ -44,7 +44,7 @@ function Inicio_Novedades() {
             className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
           >
             <img
-              src={item.img} // el back debería mandarte la URL de la imagen
+              src={item.img} 
               alt={item.titulo}
               className="w-full h-56 object-cover"
             />
