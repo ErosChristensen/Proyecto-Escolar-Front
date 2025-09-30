@@ -18,6 +18,16 @@ import Formulario_preg from './components/Formulario_preg.jsx'
 import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
 //Modalidades
 import Inicio_Modalidades from './components/Inicio_Modalidades'
+<<<<<<< Updated upstream
+=======
+import Admin_Incio from "./components/Admin_Inicio";
+
+//Institución
+function Institucion() {
+  return <div className="text-white p-10">Página de la Institución</div>;
+}
+
+>>>>>>> Stashed changes
 function App() {
   return (
     <Router>
@@ -38,9 +48,14 @@ function App() {
         } />
  
         <Route path="/noticias" element={<Noticias_Inicio />} />
+<<<<<<< Updated upstream
         <Route path="/formulario" element={<Formulario_validacion/>} />
         <Route path="/formulario-preg" element={<Formulario_preg />} />
         <Route path="/formulario-verif" element={<Formulario_verif />} />
+=======
+        
+      <Route path="/admin" element={<Admin_Incio />} />
+>>>>>>> Stashed changes
         <Route path="/modalidades" element={<Inicio_Modalidades />} />
         
       </Routes>
