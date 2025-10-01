@@ -18,6 +18,8 @@ import Formulario_preg from './components/Formulario_preg.jsx'
 import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
 //Modalidades
 import Inicio_Modalidades from './components/Inicio_Modalidades'
+//Perfil Admin
+import Admin_Noticias from "./components/Admin_Noticias.jsx";
 import Admin_Incio from "./components/Admin_Inicio";
 function App() {
   return (
@@ -43,6 +45,7 @@ function App() {
         <Route path="/formulario-preg" element={<Formulario_preg />} />
         <Route path="/formulario-verif" element={<Formulario_verif />} />
         
+       <Route path="/hola" element={<Admin_Noticias />} />  
       <Route path="/admin" element={<Admin_Incio />} />
       <Route path="/modalidades" element={<Inicio_Modalidades />} />
         

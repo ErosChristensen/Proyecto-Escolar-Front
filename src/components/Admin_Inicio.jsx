@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-
-function Admin_Incio() {
+import Nav from '../components/Nav.jsx'
+function AdminIncio() {
   const [editando, setEditando] = useState(false);
 
   return (
+    <>
+    <Nav />
     <div className="p-8">
       {!editando ? (
-        <div>
+        <div className="w-full h-140">
           <h2 className="text-2xl font-bold mb-6">INFORMACION DE INICIO</h2>
           <button
             onClick={() => setEditando(true)}
@@ -16,13 +18,13 @@ function Admin_Incio() {
           </button>
         </div>
       ) : (
-  
+          
         <div className="space-y-6">
           <h2 className="text-2xl font-bold mb-6">INFORMACION DE INICIO</h2>
 
           <button
             onClick={() => setEditando(false)}
-            className="px-6 py-2 border-orange-400 bg-orange-400 hover:bg-orange-300 hover:text-white transition text-white font-bold rounded-md"
+            className="px-6 py-2 border-orange-400 bg-orange-400 hover:bg-orange-300 hover:text-white transition text-white font-bold rounded-full"
           >
             GUARDAR
           </button>
@@ -134,7 +136,9 @@ function Admin_Incio() {
         </div>
       )}
     </div>
+</>
   );
+
 }
 
-export default Admin_Incio;
+export default AdminIncio;
