@@ -45,8 +45,8 @@ function App() {
         <Route path="/formulario-preg" element={<Formulario_preg />} />
         <Route path="/formulario-verif" element={<Formulario_verif />} />
         
-       <Route path="/hola" element={<Admin_Noticias />} />  
-      <Route path="/admin" element={<Admin_Incio />} />
+       <Route path="/admin-noticia" element={<Admin_Noticias />} />  
+      <Route path="/admin-inicio" element={<Admin_Incio />} />
       <Route path="/modalidades" element={<Inicio_Modalidades />} />
         
       </Routes>

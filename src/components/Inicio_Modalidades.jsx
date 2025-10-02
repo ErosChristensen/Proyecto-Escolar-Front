@@ -16,6 +16,7 @@ function Inicio_Modalidades() {
   const { modalidad_1, modalidad_2 } = inicioData;
 
   return (
+    <>
     <div
       className="relative h-[70vh] md:h-[85vh] w-full bg-cover bg-center flex flex-col items-center justify-center text-center px-4"
       style={{ backgroundImage: "url('/src/assets/img/InicioModalidades.png')" }} // Fondo de la sección
@@ -30,16 +31,17 @@ function Inicio_Modalidades() {
         <button className="bg-orange-500 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-md shadow-lg hover:bg-orange-600 transition">
           {modalidad_1} {/* Mostramos la primera modalidad */}
         </button>
-        <button className="bg-orange-400 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-md shadow-lg hover:bg-orange-500 transition">
+        <button className="bg-orange-500 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-md shadow-lg hover:bg-orange-600 transition">
           {modalidad_2} {/* Mostramos la segunda modalidad */}
         </button>
       </div>
 
       {/* Botón de información adicional (puede linkear a otra página o abrir modal) */}
       <button className="border-2 border-white text-white px-6 py-2 rounded-md font-bold hover:bg-white hover:text-black transition">
-        + INFORMACIÓN
+        MÁS INFORMACIÓN
       </button>
     </div>
+    </>
   );
 }
 
