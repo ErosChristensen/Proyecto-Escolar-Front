@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import NavAdmin from "./NavAdmin.jsx";
+function ModalidadesAdmin() {
 
-export default function ModalidadesAdmin() {
   const [mostrarProgramacion, setMostrarProgramacion] = useState(false);
   const [mostrarElectro, setMostrarElectro] = useState(false);
 
@@ -19,8 +20,10 @@ export default function ModalidadesAdmin() {
     setMostrarElectro(!mostrarElectro);
     setMostrarProgramacion(false);
   };
-
+   
   return (
+      <>
+        <NavAdmin /> 
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-10 px-6">
       <div className="w-full max-w-4xl mx-auto space-y-10">
         <h2 className="text-3xl font-extrabold text-center text-gray-900">
@@ -153,5 +156,8 @@ export default function ModalidadesAdmin() {
         )}
       </div>
     </div>
+  </>
   );
 }
+
+export default ModalidadesAdmin;

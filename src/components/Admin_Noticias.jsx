@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav.jsx";
+import NavAdmin from "./NavAdmin.jsx";
 
 function AdminNoticias() {
   const [mostrarNoticias, setMostrarNoticias] = useState(false);
@@ -87,7 +88,7 @@ function AdminNoticias() {
 
   return (
     <>
-      <Nav />
+      <NavAdmin />
       <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 py-10">
         <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-3xl border-2 border-orange-400 space-y-8">
           {/* Noticias publicadas */}
