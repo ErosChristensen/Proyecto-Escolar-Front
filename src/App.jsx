@@ -19,8 +19,9 @@ import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
 //Modalidades
 import Inicio_Modalidades from './components/Inicio_Modalidades'
 //Perfil Admin
-import Admin_Noticias from "./components/Admin_Noticias.jsx";
 import Admin_Incio from "./components/Admin_Inicio";
+import Admin_Noticias from "./components/Admin_Noticias.jsx";
+import Admin_Modalidades from "./components/Admin_Modalidades.jsx"; 
 function App() {
   return (
     <Router>
@@ -47,6 +48,8 @@ function App() {
         
        <Route path="/admin-noticia" element={<Admin_Noticias />} />  
       <Route path="/admin-inicio" element={<Admin_Incio />} />
+      <Route path="/admin-modalidades" element={<Admin_Modalidades />} />
+
       <Route path="/modalidades" element={<Inicio_Modalidades />} />
         
       </Routes>

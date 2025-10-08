@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav.jsx";
 
-function AdminIncio() {
+function AdminInicio() {
   const [editando, setEditando] = useState(false);
 
   return (
     <>
       <Nav />
-    
-      <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4x">
-        <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-3xl">
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 py-10">
+        <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-3xl border-2 border-orange-400">
           {!editando ? (
             // Vista inicial
             <div className="text-center space-y-6">
               <h2 className="text-3xl font-bold text-gray-800">
-                INFORMACION DE INICIO
+                INFORMACIÓN DE INICIO
               </h2>
               <button
                 onClick={() => setEditando(true)}
@@ -27,7 +26,7 @@ function AdminIncio() {
             // Vista edición
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-center text-gray-800">
-                INFORMACION DE INICIO
+                INFORMACIÓN DE INICIO
               </h2>
 
               {/* Botón Guardar */}
@@ -51,37 +50,27 @@ function AdminIncio() {
                 <div className="flex flex-wrap gap-3">
                   <input
                     type="text"
-                    defaultValue="Electromecanica"
+                    defaultValue="Electromecánica"
                     className="flex-1 border-2 border-orange-400 rounded-full px-4 py-2"
                   />
                   <input
                     type="text"
-                    defaultValue="Programacion"
+                    defaultValue="Programación"
                     className="flex-1 border-2 border-orange-400 rounded-full px-4 py-2"
                   />
                 </div>
 
                 <div className="flex flex-wrap gap-3">
-                  <input
-                    type="text"
-                    defaultValue="Carpintería"
-                    className="flex-1 border-2 border-orange-400 rounded-full px-4 py-2"
-                  />
-                  <input
-                    type="text"
-                    defaultValue="Herreria"
-                    className="flex-1 border-2 border-orange-400 rounded-full px-4 py-2"
-                  />
-                  <input
-                    type="text"
-                    defaultValue="Electricidad"
-                    className="flex-1 border-2 border-orange-400 rounded-full px-4 py-2"
-                  />
-                  <input
-                    type="text"
-                    defaultValue="Hojalateria"
-                    className="flex-1 border-2 border-orange-400 rounded-full px-4 py-2"
-                  />
+                  {["Carpintería", "Herrería", "Electricidad", "Hojalatería"].map(
+                    (item) => (
+                      <input
+                        key={item}
+                        type="text"
+                        defaultValue={item}
+                        className="flex-1 border-2 border-orange-400 rounded-full px-4 py-2"
+                      />
+                    )
+                  )}
                 </div>
               </div>
 
@@ -92,7 +81,7 @@ function AdminIncio() {
                     ¿La escuela tiene uniforme?
                   </h3>
                   <textarea
-                    defaultValue="Sí, la escuela posée un código de vestimenta. Este se basa en los colores azules, blancos, y negros. También ofrecemos la posibilidad de adquirir con la vestimenta oficial con el logo del establecimiento."
+                    defaultValue="Sí, la escuela posee un código de vestimenta basado en colores azul, blanco y negro. También se puede adquirir la vestimenta oficial con el logo del establecimiento."
                     className="w-full border-2 border-orange-400 rounded-md p-3"
                     rows={3}
                   />
@@ -157,9 +146,8 @@ function AdminIncio() {
           )}
         </div>
       </div>
-
     </>
   );
 }
 
-export default AdminIncio;
+export default AdminInicio;
