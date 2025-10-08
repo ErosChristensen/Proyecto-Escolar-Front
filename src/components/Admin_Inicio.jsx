@@ -7,10 +7,10 @@ function AdminInicio() {
   return (
     <>
       <Nav />
-      <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 py-10">
-        <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-3xl border-2 border-orange-400">
+      <div className="flex justify-center items-start min-h-screen bg-gray-100 px-4 py-10 space-y-10 flex-col">
+        {/* ---------- INFORMACIÓN DE INICIO ---------- */}
+        <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-4xl border-2 border-orange-400 mx-auto">
           {!editando ? (
-            // Vista inicial
             <div className="text-center space-y-6">
               <h2 className="text-3xl font-bold text-gray-800">
                 INFORMACIÓN DE INICIO
@@ -23,13 +23,11 @@ function AdminInicio() {
               </button>
             </div>
           ) : (
-            // Vista edición
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-center text-gray-800">
                 INFORMACIÓN DE INICIO
               </h2>
 
-              {/* Botón Guardar */}
               <div className="flex justify-center">
                 <button
                   onClick={() => setEditando(false)}
@@ -39,7 +37,6 @@ function AdminInicio() {
                 </button>
               </div>
 
-              {/* Inputs principales */}
               <div className="space-y-4">
                 <input
                   type="text"
@@ -74,7 +71,6 @@ function AdminInicio() {
                 </div>
               </div>
 
-              {/* Preguntas y respuestas */}
               <div className="space-y-4">
                 <div>
                   <h3 className="font-bold text-gray-700">
@@ -119,7 +115,6 @@ function AdminInicio() {
                 </div>
               </div>
 
-              {/* Redes y contactos */}
               <div className="flex flex-wrap gap-3">
                 <input
                   type="text"
@@ -144,6 +139,33 @@ function AdminInicio() {
               </div>
             </div>
           )}
+        </div>
+
+        {/* ---------- REGISTROS DE PRE-INSCRIPCIÓN ---------- */}
+        <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-4xl border-2 border-orange-400 mx-auto">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            REGISTROS DE PRE-INSCRIPCIÓN
+          </h2>
+          <button className="px-6 py-2 border-2 border-orange-400 rounded-full font-bold text-black hover:bg-orange-400 hover:text-white transition mb-6">
+            GUARDAR
+          </button>
+
+          <div className="overflow-x-auto">
+            <table className="min-w-full border border-gray-300">
+              <tbody>
+                {Array.from({ length: 10 }).map((_, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {Array.from({ length: 5 }).map((_, colIndex) => (
+                      <td
+                        key={colIndex}
+                        className="border border-gray-300 h-12 w-32 text-center"
+                      ></td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>
