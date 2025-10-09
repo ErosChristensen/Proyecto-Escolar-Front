@@ -32,29 +32,39 @@ function VerificacionCodigoModal({ onClose }) {
     }
   };
 
-  const handleVerificar = () => {
+  const handleVerificar = async () => {
     const codigoFinal = codigo.join('');
-    // Aquí podrías validar el código con tu backend si querés
-    // Luego, navegar a Formulario_preg
-    navigate('/formulario-preg'); 
+    const dni = localStorage.getItem("dni");
+
+    try {
+      const res = await fetch("http://localhost:3000/formulario/validar-codigo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dni, codigo: codigoFinal })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("mail", data.mail);
+        navigate('/formulario-preg');
+      } else {
+        alert(data.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error validando el código");
+    }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-brightness-75">
-      <div className="relative bg-white  w-11/12 max-w-md p-6 rounded-xl shadow-xl animate-fadeIn">
-        <button
-          className="absolute top-3 right-3 text-gray-600 hover:text-gray-800 font-bold text-lg z-50"
-          onClick={onClose}
-        >
+      <div className="relative bg-white w-11/12 max-w-md p-6 rounded-xl shadow-xl">
+        <button className="absolute top-3 right-3 text-gray-600 hover:text-gray-800 font-bold text-lg" onClick={onClose}>
           ×
         </button>
 
-        <h2 className="text-2xl font-bold text-orange-500 mb-4 text-center">
-          Verificación de correo
-        </h2>
-        <p className="text-gray-700 mb-6 text-center">
-          Ingresa el código de 6 dígitos que te enviamos por correo.
-        </p>
+        <h2 className="text-2xl font-bold text-orange-500 mb-4 text-center">Verificación de correo</h2>
+        <p className="text-gray-700 mb-6 text-center">Ingresa el código de 6 dígitos que te enviamos por correo.</p>
 
         <div className="flex justify-between mb-6">
           {codigo.map((num, i) => (
@@ -65,17 +75,12 @@ function VerificacionCodigoModal({ onClose }) {
               value={num}
               onChange={(e) => handleChange(e, i)}
               onKeyDown={(e) => handleKeyDown(e, i)}
-              className={`w-12 h-12 text-center text-lg font-bold border rounded-lg focus:outline-none focus:ring-2 transition ${
-                codigo[i] ? 'border-orange-500 ring-orange-300' : 'border-gray-300 focus:ring-orange-400'
-              }`}
+              className="w-12 h-12 text-center text-lg font-bold border rounded-lg focus:ring-2 focus:ring-orange-400"
             />
           ))}
         </div>
 
-        <button
-          onClick={handleVerificar}
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition"
-        >
+        <button onClick={handleVerificar} className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition">
           Verificar
         </button>
       </div>
