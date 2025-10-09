@@ -18,6 +18,14 @@ import Formulario_preg from './components/Formulario_preg.jsx'
 import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
 //Modalidades
 import Inicio_Modalidades from './components/Inicio_Modalidades'
+
+//Institucion
+import Institucion from './components/institucion'
+
+//Login
+import Login from './components/login.jsx'
+
+
 function App() {
   return (
     <Router>
@@ -42,7 +50,10 @@ function App() {
         <Route path="/formulario-preg" element={<Formulario_preg />} />
         <Route path="/formulario-verif" element={<Formulario_verif />} />
         <Route path="/modalidades" element={<Inicio_Modalidades />} />
-        
+        <Route path="/institucion" element={<Institucion />} />
+        <Route path="/login" element={<Login />} />
+        {/* <Route path="/recuperar-contraseña" element={<Formulario_verif />} /> */}
+
       </Routes>
       
       <Footer />
