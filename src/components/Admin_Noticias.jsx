@@ -85,7 +85,6 @@ function AdminNoticias() {
     setMostrarFormAgregar(false);
   };
 
-  // Clase para botones principales (igual que AdminInicio)
   const botonGuardar =
     "px-5 py-2 bg-orange-400 hover:bg-orange-300 text-white font-bold rounded-full transition w-full sm:w-auto";
 
@@ -94,7 +93,6 @@ function AdminNoticias() {
       <NavAdmin />
       <div className="pt-28 flex justify-center items-start min-h-screen bg-gray-100 px-3 sm:px-6 py-10">
         <div className="bg-white shadow-xl rounded-2xl p-5 sm:p-8 w-full max-w-5xl border-4 border-orange-400 space-y-10">
-          
           {/* ---------- NOTICIAS PUBLICADAS ---------- */}
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6">
@@ -115,7 +113,7 @@ function AdminNoticias() {
                 {noticias.map((n) => (
                   <div
                     key={n.id}
-                    className="border-2 border-orange-400 rounded-xl shadow-md p-6 bg-white"
+                    className="border border-gray-300 rounded-xl shadow-md p-6 bg-white"
                   >
                     {!n.editando ? (
                       <div>
@@ -130,8 +128,12 @@ function AdminNoticias() {
                             className="mt-3 w-full max-h-60 object-cover rounded-lg"
                           />
                         )}
-                        {n.fecha && <p className="text-gray-500 text-xs mt-2">📅 {n.fecha}</p>}
-                        {n.descripcion && <p className="text-gray-700 mt-2">{n.descripcion}</p>}
+                        {n.fecha && (
+                          <p className="text-gray-500 text-xs mt-2">📅 {n.fecha}</p>
+                        )}
+                        {n.descripcion && (
+                          <p className="text-gray-700 mt-2">{n.descripcion}</p>
+                        )}
 
                         <div className="flex flex-col sm:flex-row justify-end gap-3 mt-4">
                           <button
@@ -155,38 +157,44 @@ function AdminNoticias() {
                           placeholder="Título"
                           value={n.titulo}
                           onChange={(e) => handleChange(n.id, "titulo", e.target.value)}
-                          className="w-full border-2 border-orange-400 rounded-full px-4 py-2 font-semibold text-lg"
+                          className="w-full border border-gray-300 rounded-full px-4 py-2 font-semibold text-lg"
                         />
                         <input
                           type="text"
                           placeholder="Subtítulo"
                           value={n.subtitulo}
                           onChange={(e) => handleChange(n.id, "subtitulo", e.target.value)}
-                          className="w-full border-2 border-orange-400 rounded-full px-4 py-2 text-base text-gray-700"
+                          className="w-full border border-gray-300 rounded-full px-4 py-2 text-base text-gray-700"
                         />
                         <input
                           type="date"
                           value={n.fecha}
                           onChange={(e) => handleChange(n.id, "fecha", e.target.value)}
-                          className="w-full border-2 border-orange-400 rounded-full px-4 py-2"
+                          className="w-full border border-gray-300 rounded-full px-4 py-2"
                         />
                         <textarea
                           placeholder="Descripción"
                           value={n.descripcion}
                           onChange={(e) => handleChange(n.id, "descripcion", e.target.value)}
-                          className="w-full border-2 border-orange-400 rounded-md p-3"
+                          className="w-full border border-gray-300 rounded-md p-3"
                           rows={3}
                         />
                         <div>
-                          <label className="block text-sm font-bold text-gray-700 mb-1">Imagen</label>
+                          <label className="block text-sm font-bold text-gray-700 mb-1">
+                            Imagen
+                          </label>
                           <input
                             type="file"
                             accept="image/*"
                             onChange={(e) => handleImageChange(n.id, e.target.files[0])}
-                            className="w-full border-2 border-orange-400 rounded-md p-3"
+                            className="w-full border border-gray-300 rounded-md p-3"
                           />
                           {n.imagen && (
-                            <img src={n.imagen} alt="Preview" className="mt-3 w-full max-h-60 object-cover rounded-lg" />
+                            <img
+                              src={n.imagen}
+                              alt="Preview"
+                              className="mt-3 w-full max-h-60 object-cover rounded-lg"
+                            />
                           )}
                         </div>
 
@@ -225,44 +233,50 @@ function AdminNoticias() {
                 </button>
               </div>
             ) : (
-              <div className="border-2 border-orange-400 rounded-xl shadow-md p-6 bg-white space-y-4">
+              <div className="border border-gray-300 rounded-xl shadow-md p-6 bg-white space-y-4">
                 <input
                   type="text"
                   placeholder="Título"
                   value={nuevaNoticia.titulo}
                   onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, titulo: e.target.value })}
-                  className="w-full border-2 border-orange-400 rounded-full px-4 py-2 font-semibold text-lg"
+                  className="w-full border border-gray-300 rounded-full px-4 py-2 font-semibold text-lg"
                 />
                 <input
                   type="text"
                   placeholder="Subtítulo"
                   value={nuevaNoticia.subtitulo}
                   onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, subtitulo: e.target.value })}
-                  className="w-full border-2 border-orange-400 rounded-full px-4 py-2 text-base text-gray-700"
+                  className="w-full border border-gray-300 rounded-full px-4 py-2 text-base text-gray-700"
                 />
                 <input
                   type="date"
                   value={nuevaNoticia.fecha}
                   onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, fecha: e.target.value })}
-                  className="w-full border-2 border-orange-400 rounded-full px-4 py-2"
+                  className="w-full border border-gray-300 rounded-full px-4 py-2"
                 />
                 <textarea
                   placeholder="Descripción"
                   value={nuevaNoticia.descripcion}
                   onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, descripcion: e.target.value })}
-                  className="w-full border-2 border-orange-400 rounded-md p-3"
+                  className="w-full border border-gray-300 rounded-md p-3"
                   rows={3}
                 />
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">Imagen</label>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">
+                    Imagen
+                  </label>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleNuevaImage(e.target.files[0])}
-                    className="w-full border-2 border-orange-400 rounded-md p-3"
+                    className="w-full border border-gray-300 rounded-md p-3"
                   />
                   {nuevaNoticia.imagen && (
-                    <img src={nuevaNoticia.imagen} alt="Preview" className="mt-3 w-full max-h-60 object-cover rounded-lg" />
+                    <img
+                      src={nuevaNoticia.imagen}
+                      alt="Preview"
+                      className="mt-3 w-full max-h-60 object-cover rounded-lg"
+                    />
                   )}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">

@@ -21,7 +21,7 @@ function NavAdmin() {
         {/* Links escritorio */}
         <nav className="hidden md:flex gap-8 font-semibold text-base sm:text-lg">
           <NavLink
-            to="/admin/inicio"
+            to="/admin-inicio"
             className={({ isActive }) =>
               `hover:text-gray-400 ${
                 isActive ? "text-orange-400" : "text-white"
@@ -32,7 +32,7 @@ function NavAdmin() {
           </NavLink>
 
           <NavLink
-            to="/admin/noticias"
+            to="/admin-noticias"
             className={({ isActive }) =>
               `hover:text-gray-400 ${
                 isActive ? "text-orange-400" : "text-white"
@@ -43,7 +43,7 @@ function NavAdmin() {
           </NavLink>
 
           <NavLink
-            to="/admin/modalidades"
+            to="/admin-modalidades"
             className={({ isActive }) =>
               `hover:text-gray-400 ${
                 isActive ? "text-orange-400" : "text-white"
@@ -67,21 +67,21 @@ function NavAdmin() {
       {menuOpen && (
         <nav className="flex flex-col gap-4 mt-4 md:hidden font-semibold text-base bg-black p-4 rounded-lg">
           <NavLink
-            to="/admin/inicio"
+            to="/admin-inicio"
             className="hover:text-orange-400"
             onClick={() => setMenuOpen(false)}
           >
             Inicio / Pre-inscripción
           </NavLink>
           <NavLink
-            to="/admin/noticias"
+            to="/admin-noticias"
             className="hover:text-orange-400"
             onClick={() => setMenuOpen(false)}
           >
             Noticias
           </NavLink>
           <NavLink
-            to="/admin/modalidades"
+            to="/admin-modalidades"
             className="hover:text-orange-400"
             onClick={() => setMenuOpen(false)}
           >
