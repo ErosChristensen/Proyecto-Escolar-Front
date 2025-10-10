@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import { GiSchoolBag } from "react-icons/gi";
+import { FaSchool } from 'react-icons/fa';
 
 function Header() {
   return (
@@ -8,7 +8,7 @@ function Header() {
       {/* Redes sociales a la izquierda */}
       <div className="flex space-x-5">
         <a
-          href="https://facebook.com"
+          href="https://www.facebook.com/eest1bj/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Facebook"
@@ -17,7 +17,7 @@ function Header() {
           <FaFacebookF size={20} />
         </a>
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/escuelatecnicabenitojuarez/?hl=es-la"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
@@ -29,7 +29,7 @@ function Header() {
 
       {/* Campus Virtual a la derecha */}
       <div className="flex items-center space-x-2 cursor-pointer hover:text-gray-400">
-        <GiSchoolBag size={22} />
+        <FaSchool size={22} />
         <span className="font-medium">Campus Virtual</span>
       </div>
     </header>

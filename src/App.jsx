@@ -18,7 +18,10 @@ import Formulario_preg from './components/Formulario_preg.jsx'
 import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
 //Modalidades
 import Inicio_Modalidades from './components/Inicio_Modalidades'
-//Perfil Admin
+//Institucion
+import Institucion from './components/institucion'
+
+import Login from './components/login.jsx'
 import NavAdmin from "./components/NavAdmin.jsx";
 import Admin_Incio from "./components/Admin_Inicio";
 import Admin_Noticias from "./components/Admin_Noticias.jsx";
@@ -46,7 +49,10 @@ function App() {
         <Route path="/formulario" element={<Formulario_validacion/>} />
         <Route path="/formulario-preg" element={<Formulario_preg />} />
         <Route path="/formulario-verif" element={<Formulario_verif />} />
-        
+        <Route path="/modalidades" element={<Inicio_Modalidades />} />
+        <Route path="/institucion" element={<Institucion />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/recuperar-contraseña" element={<Formulario_verif />} />        
       <Route path="/admin-noticias" element={<Admin_Noticias />} />  
       <Route path="/admin-inicio" element={<Admin_Incio />} />
       <Route path="/admin-modalidades" element={<Admin_Modalidades />} />
