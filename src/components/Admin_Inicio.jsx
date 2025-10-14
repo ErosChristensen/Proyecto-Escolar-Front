@@ -153,12 +153,12 @@ function AdminInicio() {
                 <thead className="bg-orange-100">
                   <tr>
                     {[
-                      "Nombre",
-                      "Apellido",
+                      "Nombre Completo",
                       "DNI",
-                      "E-mail",
+                      "Fecha de Nacimiento",
+                      "Cuilts",
                       "Modalidad",
-                      "Teléfono",
+                      "Archivos varios",
                       "Dar de Alta",
                       "Dar de Baja",
                     ].map((header) => (
