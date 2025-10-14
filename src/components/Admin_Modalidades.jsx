@@ -160,7 +160,11 @@ function ModalidadesAdmin() {
 
           {mostrarProgramacion && <BloqueModalidad pildoras={pildorasProg} persistChange={persistChangeProg} />}
           {mostrarElectro && <BloqueModalidad pildoras={pildorasElectro} persistChange={persistChangeElectro} />}
+                    <div className="text-center text-md text-gray-500">
+            Recuerde que los datos cargados en esta sección representan a la institución. Verifique su exactitud antes de publicar. Todo lo que se publique será visible para la comunidad educativa. 
+          </div>
         </div>
+        
       </div>
     </>
   );

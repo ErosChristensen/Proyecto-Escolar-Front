@@ -27,6 +27,7 @@ import Login from './components/login.jsx'
 import Admin_Incio from "./components/Admin_Inicio";
 import Admin_Noticias from "./components/Admin_Noticias.jsx";
 import Admin_Modalidades from "./components/Admin_Modalidades.jsx";
+import Admin_Historia from "./components/Admin_Historia.jsx";
 function App() {
   return (
     <Router>
@@ -61,7 +62,8 @@ function App() {
         <Route path="/admin-modalidades" element={<Admin_Modalidades />} />
         <Route path="/aviso" element={<Aviso />} />
         <Route path="/modalidades" element={<Inicio_Modalidades />} />
-
+        <Route path="/modalidades" element={<Inicio_Modalidades />} />
+        <Route path="/admin-historia" element={<Admin_Historia />} />
       </Routes>
 
       <Footer />

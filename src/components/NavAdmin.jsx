@@ -51,6 +51,16 @@ function NavAdmin() {
             }
           >
             Modalidades
+          </NavLink>          
+          <NavLink
+            to="/admin-historia"
+            className={({ isActive }) =>
+              `hover:text-gray-400 ${
+                isActive ? "text-orange-400" : "text-white"
+              }`
+            }
+          >
+            Institucion
           </NavLink>
         </nav>
 
@@ -86,6 +96,13 @@ function NavAdmin() {
             onClick={() => setMenuOpen(false)}
           >
             Modalidades
+          </NavLink>
+                    <NavLink
+            to="/admin-historia"
+            className="hover:text-orange-400"
+            onClick={() => setMenuOpen(false)}
+          >
+            Institucion
           </NavLink>
         </nav>
       )}
