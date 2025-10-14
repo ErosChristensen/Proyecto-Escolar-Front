@@ -20,6 +20,7 @@ import Formulario_preg from './components/Formulario_preg.jsx'
 import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
 //Modalidades
 import Modalidad from './components/Modalidad.jsx'
+import Modalidad_Programacion from './components/Modalidad_Programacion.jsx'
 //Institucion
 import Institucion from './components/institucion'
 
@@ -49,6 +50,7 @@ function App() {
 
         <Route path="/noticias" element={<Noticias_Inicio />} />
         <Route path="/modalidad" element={<Modalidad />} />
+        <Route path="/modalidad-prog" element={<Modalidad_Programacion />} />
         <Route path="/formulario" element={<Formulario_validacion />} />
         <Route path="/formulario-preg" element={<Formulario_preg />} />
         <Route path="/formulario-verif" element={<Formulario_verif />} />
