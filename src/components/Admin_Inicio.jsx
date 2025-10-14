@@ -13,7 +13,7 @@ function AdminInicio() {
 
       <div className="pt-28 flex justify-center items-start min-h-screen bg-gray-100 px-3 sm:px-6 py-10">
         {/* ---------- TARJETA PRINCIPAL ---------- */}
-        <div className="bg-white shadow-xl rounded-2xl p-5 sm:p-8 w-full max-w-5xl border-4 border-orange-400 space-y-10">
+        <div className="bg-white shadow-xl rounded-2xl p-5 sm:p-8 w-full max-w-6xl border-4 border-orange-400 space-y-10">
           {/* ---------- INFORMACIÓN ---------- */}
           <div>
             {!editando ? (
@@ -147,17 +147,49 @@ function AdminInicio() {
               <button className={botonGuardar}>GUARDAR</button>
             </div>
 
+            {/* ---------- TABLA NUEVA (8 columnas x 3 filas) ---------- */}
             <div className="overflow-x-auto">
-              <table className="min-w-full border border-gray-300 text-sm sm:text-base">
+              <table className="min-w-full border border-gray-300 text-sm sm:text-base text-center">
+                <thead className="bg-orange-100">
+                  <tr>
+                    {[
+                      "Nombre",
+                      "Apellido",
+                      "DNI",
+                      "E-mail",
+                      "Modalidad",
+                      "Teléfono",
+                      "Dar de Alta",
+                      "Dar de Baja",
+                    ].map((header) => (
+                      <th
+                        key={header}
+                        className="border border-gray-300 px-4 py-2 font-semibold"
+                      >
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
                 <tbody>
-                  {Array.from({ length: 10 }).map((_, rowIndex) => (
+                  {Array.from({ length: 3 }).map((_, rowIndex) => (
                     <tr key={rowIndex}>
-                      {Array.from({ length: 5 }).map((_, colIndex) => (
+                      {Array.from({ length: 6 }).map((_, colIndex) => (
                         <td
                           key={colIndex}
-                          className="border border-gray-300 h-10 sm:h-12 w-24 sm:w-32 text-center"
+                          className="border border-gray-300 h-10 w-32"
                         ></td>
                       ))}
+                      <td className="border border-gray-300 h-10 w-32">
+                        <button className="bg-green-400 hover:bg-green-300 text-white px-3 py-1 rounded-full font-semibold transition">
+                          ✓ 
+                        </button>
+                      </td>
+                      <td className="border border-gray-300 h-10 w-32">
+                        <button className="bg-red-400 hover:bg-red-300 text-white px-3 py-1 rounded-full font-semibold transition">
+                          ✓ 
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

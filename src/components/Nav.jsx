@@ -22,7 +22,7 @@ function Nav() {
         <nav className="hidden md:flex gap-8 font-semibold text-lg">
           <Link to="/" className="hover:text-gray-400">Inicio</Link>
           <Link to="/noticias" className="hover:text-gray-400">Noticias</Link>
-          <Link to="/modalidades" className="hover:text-gray-400">Modalidades</Link>
+          <Link to="/modalidad" className="hover:text-gray-400">Modalidades</Link>
           <Link to="/institucion" className="hover:text-gray-400">Institución</Link>
         </nav>
 
