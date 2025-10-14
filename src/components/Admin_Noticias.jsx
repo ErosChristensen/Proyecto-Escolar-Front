@@ -5,57 +5,84 @@ function AdminNoticias() {
   const [mostrarNoticias, setMostrarNoticias] = useState(false);
   const [mostrarFormAgregar, setMostrarFormAgregar] = useState(false);
 
-  // estado para noticias (normalizamos la respuesta del servidor)
   const [noticias, setNoticias] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [nuevaNoticia, setNuevaNoticia] = useState({
     titulo: "",
     subtitulo: "",
     fecha: "",
     descripcion: "",
-    imagen: null,      // preview (dataURL)
-    imagenFile: null,  // File real para enviar
+    imagenesPreview: [], // dataURLs
+    imagenesFiles: [],   // File[]
   });
 
-  const PUBLIC_GET = "http://localhost:3000/api/noticias"; // listado público (GET)
+  const PUBLIC_GET = "http://localhost:3000/api/noticias"; // GET público
   const ADMIN_BASE = "http://localhost:3000/api/admin/noticias"; // admin (POST/PUT/DELETE)
 
-  // Carga inicial de noticias (GET /api/noticias)
   useEffect(() => {
-    fetchNoticias();
+    // no pre-cargamos automáticamente: se carga al pedir VER NOTICIAS
   }, []);
 
+  // ---------- Helpers para fechas ----------
+  // Mostrar como DD/MM/YYYY (usa UTC para evitar desfasajes de zona horaria)
+  const formatDateDisplay = (dateStr) => {
+    if (!dateStr) return "";
+    try {
+      const d = new Date(dateStr);
+      const day = String(d.getUTCDate()).padStart(2, "0");
+      const month = String(d.getUTCMonth() + 1).padStart(2, "0");
+      const year = d.getUTCFullYear();
+      return `${day}/${month}/${year}`;
+    } catch {
+      return dateStr;
+    }
+  };
+
+  // Formato para input type="date" -> YYYY-MM-DD (usa UTC)
+  const formatDateForInput = (dateStr) => {
+    if (!dateStr) return "";
+    try {
+      const d = new Date(dateStr);
+      const day = String(d.getUTCDate()).padStart(2, "0");
+      const month = String(d.getUTCMonth() + 1).padStart(2, "0");
+      const year = d.getUTCFullYear();
+      return `${year}-${month}-${day}`;
+    } catch {
+      return dateStr;
+    }
+  };
+  // -----------------------------------------
+
   const fetchNoticias = async () => {
+    setLoading(true);
     try {
       const res = await fetch(PUBLIC_GET);
       const data = await res.json();
-      // Normalize: many endpoints devuelven { ok:true, items: [...] }
-      const items = Array.isArray(data) ? data : (data.items || data.rows || data.data || []);
-      // mapear a la forma que usa el componente (agregar flags y previews)
+      const items = Array.isArray(data) ? data : data.items || data.rows || data.data || [];
       const mapped = (items || []).map((it) => ({
-        // tu tabla usa id_noticias en backend
-        id_noticias: it.id_noticias ?? it.id ?? it.id_noticias,
+        id_noticias: it.id_noticias ?? it.id,
         titulo: it.titulo ?? "",
-        subtitulo: it.subtitulo ?? it.subtitulo ?? "",
-        fecha: it.fecha ?? it.fecha ?? "",
+        subtitulo: it.subtitulo ?? "",
+        fecha: it.fecha ?? it.fecha, // puede venir ISO o YYYY-MM-DD
         descripcion: it.descripcion ?? "",
-        // Default preview: si backend devuelve imagen1 como "/uploads/xxx"
-        imagenUrl:
-          it.imagen1 || it.imagen || it.imagen1 === null
-            ? (it.imagen1 ? `http://localhost:3000${it.imagen1}` : null)
-            : null,
-        imagen: null, // preview dataURL si editan localmente
-        imagenFile: null,
+        imagenesPreview: [
+          it.imagen1 ? `http://localhost:3000${it.imagen1}` : null,
+          it.imagen2 ? `http://localhost:3000${it.imagen2}` : null,
+          it.imagen3 ? `http://localhost:3000${it.imagen3}` : null,
+          it.imagen4 ? `http://localhost:3000${it.imagen4}` : null,
+        ].filter(Boolean),
+        imagenesFiles: [],
         editando: false,
       }));
       setNoticias(mapped);
     } catch (err) {
       console.error("Error cargando noticias:", err);
-      // mantenemos estado viejo si existiera
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Helpers para UI (NO cambian tu estructura ni tailwind)
   const toggleEditar = (id) => {
     setNoticias(noticias.map((n) => (n.id_noticias === id ? { ...n, editando: !n.editando } : n)));
   };
@@ -64,35 +91,40 @@ function AdminNoticias() {
     setNoticias(noticias.map((n) => (n.id_noticias === id ? { ...n, [field]: value } : n)));
   };
 
-  const handleImageChange = (id, file) => {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
+  // Manejo de archivos para edición (hasta 4)
+  const handleImageChange = (id, fileList) => {
+    if (!fileList) return;
+    const files = Array.from(fileList).slice(0, 4);
+    const readers = files.map((file) =>
+      new Promise((resolve) => {
+        const r = new FileReader();
+        r.onloadend = () => resolve(r.result);
+        r.readAsDataURL(file);
+      })
+    );
+    Promise.all(readers).then((dataUrls) => {
       setNoticias((prev) =>
         prev.map((n) =>
-          n.id_noticias === id
-            ? { ...n, imagen: reader.result, imagenFile: file } // preview + file real
-            : n
+          n.id_noticias === id ? { ...n, imagenesPreview: dataUrls, imagenesFiles: files } : n
         )
       );
-    };
-    reader.readAsDataURL(file);
+    });
   };
 
+  // Guardar noticia (PUT)
   const guardarNoticia = async (id) => {
     const target = noticias.find((n) => n.id_noticias === id);
     if (!target) return;
 
-    // Preparar FormData para enviar texto + posible archivo
     const fd = new FormData();
     if (target.titulo !== undefined) fd.append("titulo", target.titulo);
     if (target.subtitulo !== undefined) fd.append("subtitulo", target.subtitulo);
     if (target.descripcion !== undefined) fd.append("descripcion", target.descripcion);
+    // fecha: si el campo proviene del date input será YYYY-MM-DD ya.
     if (target.fecha !== undefined) fd.append("fecha", target.fecha);
 
-    // Si hay un File nuevo (imagenFile) lo anexamos
-    if (target.imagenFile) {
-      fd.append("imagenes", target.imagenFile); // backend acepta 'imagenes' array
+    if (target.imagenesFiles && target.imagenesFiles.length > 0) {
+      target.imagenesFiles.slice(0, 4).forEach((f) => fd.append("imagenes", f));
     }
 
     try {
@@ -102,19 +134,19 @@ function AdminNoticias() {
       });
       const json = await res.json();
       if (res.ok && json.ok) {
-        // recargo lista para asegurar consistencia (imagenes urls, etc)
-        await fetchNoticias();
         alert("✅ Noticia actualizada");
+        await fetchNoticias();
       } else {
-        console.error("Error actualizar noticia:", json);
+        console.error("Error al actualizar noticia:", json);
         alert("❌ Error al actualizar noticia: " + (json.error || JSON.stringify(json)));
       }
     } catch (err) {
       console.error("Error al actualizar noticia:", err);
-      alert("❌ Error al actualizar noticia (ver consola).");
+      alert("❌ Error al actualizar noticia (ver consola)");
     }
   };
 
+  // DELETE
   const eliminarNoticia = async (id) => {
     if (!window.confirm("¿Seguro que querés eliminar esta noticia?")) return;
     try {
@@ -124,28 +156,35 @@ function AdminNoticias() {
         setNoticias(noticias.filter((n) => n.id_noticias !== id));
         alert("🗑️ Noticia eliminada");
       } else {
-        console.error("Error eliminar noticia:", json);
+        console.error("Error al eliminar noticia:", json);
         alert("❌ Error al eliminar noticia: " + (json.error || JSON.stringify(json)));
       }
     } catch (err) {
       console.error("Error al eliminar noticia:", err);
-      alert("❌ Error al eliminar noticia (ver consola).");
+      alert("❌ Error al eliminar noticia (ver consola)");
     }
   };
 
-  // Nueva noticia: preview y archivo
-  const handleNuevaImage = (file) => {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setNuevaNoticia((prev) => ({ ...prev, imagen: reader.result, imagenFile: file }));
-    };
-    reader.readAsDataURL(file);
+  // Nueva noticia: handle multiple up to 4
+  const handleNuevaImages = (fileList) => {
+    if (!fileList) return;
+    const files = Array.from(fileList).slice(0, 4);
+    const readers = files.map((file) =>
+      new Promise((resolve) => {
+        const r = new FileReader();
+        r.onloadend = () => resolve(r.result);
+        r.readAsDataURL(file);
+      })
+    );
+    Promise.all(readers).then((dataUrls) => {
+      setNuevaNoticia((prev) => ({ ...prev, imagenesPreview: dataUrls, imagenesFiles: files }));
+    });
   };
 
+  // POST
   const agregarNoticia = async () => {
-    if (!nuevaNoticia.titulo || !nuevaNoticia.descripcion || !nuevaNoticia.fecha || !nuevaNoticia.subtitulo) {
-      alert("Los campos título, subtítulo, descripción y fecha son obligatorios.");
+    if (!nuevaNoticia.titulo || !nuevaNoticia.subtitulo || !nuevaNoticia.fecha || !nuevaNoticia.descripcion) {
+      alert("Los campos título, subtítulo, fecha y descripción son obligatorios.");
       return;
     }
 
@@ -154,33 +193,32 @@ function AdminNoticias() {
     fd.append("subtitulo", nuevaNoticia.subtitulo);
     fd.append("fecha", nuevaNoticia.fecha);
     fd.append("descripcion", nuevaNoticia.descripcion);
-    if (nuevaNoticia.imagenFile) fd.append("imagenes", nuevaNoticia.imagenFile); // 'imagenes' acepta array
+    if (nuevaNoticia.imagenesFiles && nuevaNoticia.imagenesFiles.length > 0) {
+      nuevaNoticia.imagenesFiles.slice(0, 4).forEach((f) => fd.append("imagenes", f));
+    }
 
     try {
-      const res = await fetch(ADMIN_BASE, {
-        method: "POST",
-        body: fd,
-      });
+      const res = await fetch(ADMIN_BASE, { method: "POST", body: fd });
       const json = await res.json();
       if (res.ok && json.ok) {
-        // backend responde { ok:true, item: {...} }
         const item = json.item;
-        // normalizamos a nuestro formato y lo agregamos
-        setNoticias((prev) => [
-          ...prev,
-          {
-            id_noticias: item.id_noticias ?? item.id ?? item.id_noticias,
-            titulo: item.titulo ?? "",
-            subtitulo: item.subtitulo ?? "",
-            fecha: item.fecha ?? "",
-            descripcion: item.descripcion ?? "",
-            imagenUrl: item.imagen1 ? `http://localhost:3000${item.imagen1}` : null,
-            imagen: null,
-            imagenFile: null,
-            editando: false,
-          },
-        ]);
-        setNuevaNoticia({ titulo: "", subtitulo: "", fecha: "", descripcion: "", imagen: null, imagenFile: null });
+        const newItem = {
+          id_noticias: item.id_noticias,
+          titulo: item.titulo,
+          subtitulo: item.subtitulo,
+          fecha: item.fecha,
+          descripcion: item.descripcion,
+          imagenesPreview: [
+            item.imagen1 ? `http://localhost:3000${item.imagen1}` : null,
+            item.imagen2 ? `http://localhost:3000${item.imagen2}` : null,
+            item.imagen3 ? `http://localhost:3000${item.imagen3}` : null,
+            item.imagen4 ? `http://localhost:3000${item.imagen4}` : null,
+          ].filter(Boolean),
+          imagenesFiles: [],
+          editando: false,
+        };
+        setNoticias((prev) => [...prev, newItem]);
+        setNuevaNoticia({ titulo: "", subtitulo: "", fecha: "", descripcion: "", imagenesPreview: [], imagenesFiles: [] });
         setMostrarFormAgregar(false);
         alert("✅ Noticia creada");
       } else {
@@ -189,14 +227,13 @@ function AdminNoticias() {
       }
     } catch (err) {
       console.error("Error creando noticia:", err);
-      alert("❌ Error al crear noticia (ver consola).");
+      alert("❌ Error al crear noticia (ver consola)");
     }
   };
 
   const botonGuardar =
     "px-5 py-2 bg-orange-400 hover:bg-orange-300 text-white font-bold rounded-full transition w-full sm:w-auto";
 
-  // -------------------- RENDER --------------------
   return (
     <>
       <NavAdmin />
@@ -213,7 +250,6 @@ function AdminNoticias() {
                 <button
                   onClick={() => {
                     setMostrarNoticias(true);
-                    // si no hay noticias cargadas, intentar recargar
                     if (noticias.length === 0) fetchNoticias();
                   }}
                   className="px-6 py-2 border-2 border-orange-400 rounded-full font-bold text-black hover:bg-orange-400 hover:text-white transition w-full sm:w-auto"
@@ -223,6 +259,7 @@ function AdminNoticias() {
               </div>
             ) : (
               <div className="space-y-6">
+                {loading && <p className="text-center py-4">Cargando noticias...</p>}
                 {noticias.map((n) => (
                   <div
                     key={n.id_noticias}
@@ -231,29 +268,23 @@ function AdminNoticias() {
                     {!n.editando ? (
                       <div>
                         <h3 className="font-bold text-lg">{n.titulo}</h3>
-                        {n.subtitulo && (
-                          <p className="text-gray-600 text-sm italic">{n.subtitulo}</p>
+                        {n.subtitulo && <p className="text-gray-600 text-sm italic">{n.subtitulo}</p>}
+                        {(n.imagenesPreview && n.imagenesPreview.length > 0) && (
+                          <div className="mt-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+                            {n.imagenesPreview.map((src, i) => (
+                              <img key={i} src={src} alt={`Noticia ${i}`} className="w-full max-h-40 object-cover rounded-lg" />
+                            ))}
+                          </div>
                         )}
-                        {/* Mostrar preview local si existe, si no usar imagenUrl */}
-                        {(n.imagen || n.imagenUrl) && (
-                          <img
-                            src={n.imagen || n.imagenUrl}
-                            alt="Noticia"
-                            className="mt-3 w-full max-h-60 object-cover rounded-lg"
-                          />
-                        )}
-                        {n.fecha && (
-                          <p className="text-gray-500 text-xs mt-2">📅 {n.fecha}</p>
-                        )}
+                        {n.fecha && <p className="text-gray-500 text-xs mt-2">📅 {formatDateDisplay(n.fecha)}</p>}
                         {n.descripcion && (
-                          <p className="text-gray-700 mt-2">{n.descripcion}</p>
+                          <p className="text-gray-700 mt-2 whitespace-pre-wrap break-words">
+                            {n.descripcion}
+                          </p>
                         )}
 
                         <div className="flex flex-col sm:flex-row justify-end gap-3 mt-4">
-                          <button
-                            onClick={() => toggleEditar(n.id_noticias)}
-                            className={botonGuardar + " text-sm sm:text-base"}
-                          >
+                          <button onClick={() => toggleEditar(n.id_noticias)} className={botonGuardar + " text-sm sm:text-base"}>
                             MODIFICAR INFO
                           </button>
                           <button
@@ -282,7 +313,7 @@ function AdminNoticias() {
                         />
                         <input
                           type="date"
-                          value={n.fecha}
+                          value={n.fecha ? formatDateForInput(n.fecha) : ""}
                           onChange={(e) => handleChange(n.id_noticias, "fecha", e.target.value)}
                           className="w-full border border-gray-300 rounded-full px-4 py-2"
                         />
@@ -290,36 +321,30 @@ function AdminNoticias() {
                           placeholder="Descripción"
                           value={n.descripcion}
                           onChange={(e) => handleChange(n.id_noticias, "descripcion", e.target.value)}
-                          className="w-full border border-gray-300 rounded-md p-3"
+                          className="w-full border border-gray-300 rounded-md p-3 whitespace-pre-wrap break-words"
                           rows={3}
                         />
                         <div>
-                          <label className="block text-sm font-bold text-gray-700 mb-1">
-                            Imagen
-                          </label>
+                          <label className="block text-sm font-bold text-gray-700 mb-1">Imagenes (max 4)</label>
                           <input
                             type="file"
                             accept="image/*"
-                            onChange={(e) => handleImageChange(n.id_noticias, e.target.files[0])}
+                            multiple
+                            onChange={(e) => handleImageChange(n.id_noticias, e.target.files)}
                             className="w-full border border-gray-300 rounded-md p-3"
                           />
-                          {(n.imagen || n.imagenUrl) && (
-                            <img
-                              src={n.imagen || n.imagenUrl}
-                              alt="Preview"
-                              className="mt-3 w-full max-h-60 object-cover rounded-lg"
-                            />
+                          {(n.imagenesPreview && n.imagenesPreview.length > 0) && (
+                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+                              {n.imagenesPreview.map((src, i) => (
+                                <img key={i} src={src} alt={`Preview ${i}`} className="w-full max-h-40 object-cover rounded-lg" />
+                              ))}
+                            </div>
                           )}
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-3">
-                          <button onClick={() => guardarNoticia(n.id_noticias)} className={botonGuardar}>
-                            GUARDAR NOTICIA
-                          </button>
-                          <button
-                            onClick={() => toggleEditar(n.id_noticias)}
-                            className="w-full sm:w-auto px-6 py-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white font-bold rounded-full transition"
-                          >
+                          <button onClick={() => guardarNoticia(n.id_noticias)} className={botonGuardar}>GUARDAR NOTICIA</button>
+                          <button onClick={() => toggleEditar(n.id_noticias)} className="w-full sm:w-auto px-6 py-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white font-bold rounded-full transition">
                             CANCELAR
                           </button>
                         </div>
@@ -348,62 +373,24 @@ function AdminNoticias() {
               </div>
             ) : (
               <div className="border border-gray-300 rounded-xl shadow-md p-6 bg-white space-y-4">
-                <input
-                  type="text"
-                  placeholder="Título"
-                  value={nuevaNoticia.titulo}
-                  onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, titulo: e.target.value })}
-                  className="w-full border border-gray-300 rounded-full px-4 py-2 font-semibold text-lg"
-                />
-                <input
-                  type="text"
-                  placeholder="Subtítulo"
-                  value={nuevaNoticia.subtitulo}
-                  onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, subtitulo: e.target.value })}
-                  className="w-full border border-gray-300 rounded-full px-4 py-2 text-base text-gray-700"
-                />
-                <input
-                  type="date"
-                  value={nuevaNoticia.fecha}
-                  onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, fecha: e.target.value })}
-                  className="w-full border border-gray-300 rounded-full px-4 py-2"
-                />
-                <textarea
-                  placeholder="Descripción"
-                  value={nuevaNoticia.descripcion}
-                  onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, descripcion: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md p-3"
-                  rows={3}
-                />
+                <input type="text" placeholder="Título" value={nuevaNoticia.titulo} onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, titulo: e.target.value })} className="w-full border border-gray-300 rounded-full px-4 py-2 font-semibold text-lg" />
+                <input type="text" placeholder="Subtítulo" value={nuevaNoticia.subtitulo} onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, subtitulo: e.target.value })} className="w-full border border-gray-300 rounded-full px-4 py-2 text-base text-gray-700" />
+                <input type="date" value={nuevaNoticia.fecha} onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, fecha: e.target.value })} className="w-full border border-gray-300 rounded-full px-4 py-2" />
+                <textarea placeholder="Descripción" value={nuevaNoticia.descripcion} onChange={(e) => setNuevaNoticia({ ...nuevaNoticia, descripcion: e.target.value })} className="w-full border border-gray-300 rounded-md p-3 whitespace-pre-wrap break-words" rows={3} />
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">
-                    Imagen
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleNuevaImage(e.target.files[0])}
-                    className="w-full border border-gray-300 rounded-md p-3"
-                  />
-                  {nuevaNoticia.imagen && (
-                    <img
-                      src={nuevaNoticia.imagen}
-                      alt="Preview"
-                      className="mt-3 w-full max-h-60 object-cover rounded-lg"
-                    />
+                  <label className="block text-sm font-bold text-gray-700 mb-1">Imagenes (max 4)</label>
+                  <input type="file" accept="image/*" multiple onChange={(e) => handleNuevaImages(e.target.files)} className="w-full border border-gray-300 rounded-md p-3" />
+                  {(nuevaNoticia.imagenesPreview && nuevaNoticia.imagenesPreview.length > 0) && (
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-4 gap-2">
+                      {nuevaNoticia.imagenesPreview.map((src, i) => (
+                        <img key={i} src={src} alt={`Preview ${i}`} className="w-full max-h-40 object-cover rounded-lg" />
+                      ))}
+                    </div>
                   )}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <button onClick={agregarNoticia} className={botonGuardar}>
-                    GUARDAR NOTICIA
-                  </button>
-                  <button
-                    onClick={() => {
-                      setMostrarFormAgregar(false);
-                      setNuevaNoticia({ titulo: "", subtitulo: "", fecha: "", descripcion: "", imagen: null, imagenFile: null });
-                    }}
-                    className="w-full sm:w-auto px-6 py-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white font-bold rounded-full transition"
-                  >
+                  <button onClick={agregarNoticia} className={botonGuardar}>GUARDAR NOTICIA</button>
+                  <button onClick={() => { setMostrarFormAgregar(false); setNuevaNoticia({ titulo: "", subtitulo: "", fecha: "", descripcion: "", imagenesPreview: [], imagenesFiles: [] }); }} className="w-full sm:w-auto px-6 py-2 border-2 border-gray-400 hover:bg-gray-400 hover:text-white font-bold rounded-full transition">
                     CANCELAR
                   </button>
                 </div>

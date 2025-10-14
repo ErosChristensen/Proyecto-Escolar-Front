@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function Noticias_elegida({ noticia, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const media = noticia?.multimedia?.slice(0, 5) || [];
+  const media = noticia?.multimedia || [];
 
   const isVideo = (url) =>
     url?.endsWith(".mp4") || url?.endsWith(".webm") || url?.endsWith(".ogg");
@@ -72,14 +72,11 @@ export default function Noticias_elegida({ noticia, onClose }) {
                   />
                 )}
 
-                {/* Botones prev/next */}
                 <button
                   onClick={prevSlide}
                   disabled={media.length === 1}
                   className={`absolute top-1/2 left-2 sm:left-4 -translate-y-1/2 rounded-full bg-black/40 text-white p-2 sm:p-3 ${
-                    media.length === 1
-                      ? "opacity-40 cursor-not-allowed"
-                      : "hover:bg-black/60"
+                    media.length === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-black/60"
                   }`}
                 >
                   <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -89,15 +86,12 @@ export default function Noticias_elegida({ noticia, onClose }) {
                   onClick={nextSlide}
                   disabled={media.length === 1}
                   className={`absolute top-1/2 right-2 sm:right-4 -translate-y-1/2 rounded-full bg-black/40 text-white p-2 sm:p-3 ${
-                    media.length === 1
-                      ? "opacity-40 cursor-not-allowed"
-                      : "hover:bg-black/60"
+                    media.length === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-black/60"
                   }`}
                 >
                   <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
                 </button>
 
-                {/* Indicador */}
                 <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-4 text-xs sm:text-sm px-2 py-1 rounded-full bg-black/55 text-white">
                   {currentIndex + 1} / {media.length}
                 </div>
@@ -113,13 +107,10 @@ export default function Noticias_elegida({ noticia, onClose }) {
             <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-gray-900">
               {noticia.titulo}
             </h1>
-            <p className="mt-4 text-sm sm:text-base text-gray-700">
-              {noticia.descripcion.length > 500
-                ? noticia.descripcion.slice(0, 500) + "…"
-                : noticia.descripcion}
+            <p className="mt-4 text-sm sm:text-base text-gray-700 whitespace-pre-wrap break-words">
+              {noticia.descripcion}
             </p>
 
-            {/* Botón Cerrar */}
             <div className="mt-6 flex justify-end">
               <button
                 onClick={onClose}
@@ -134,5 +125,3 @@ export default function Noticias_elegida({ noticia, onClose }) {
     </AnimatePresence>
   );
 }
-
-
