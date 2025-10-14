@@ -26,19 +26,19 @@ import Institucion from './components/institucion'
 import Login from './components/login.jsx'
 import Admin_Incio from "./components/Admin_Inicio";
 import Admin_Noticias from "./components/Admin_Noticias.jsx";
-import Admin_Modalidades from "./components/Admin_Modalidades.jsx"; 
+import Admin_Modalidades from "./components/Admin_Modalidades.jsx";
 function App() {
   return (
     <Router>
       <Scrollear_Ventana_Arriba />
       <Header />
       <Routes>
- 
+
         <Route path="/" element={
           <>
 
             <Inicio_Principal />
-            <Aviso/>
+            <Aviso />
             <Inicio_Novedades />
             <Inicio_Modalidades />
             <Inicio_Talleres />
@@ -46,28 +46,28 @@ function App() {
             <Inicio_Preguntas />
           </>
         } />
- 
+
         <Route path="/noticias" element={<Noticias_Inicio />} />
-           <Route path="/modalidad" element={<Modalidad />} />
-        <Route path="/formulario" element={<Formulario_validacion/>} />
+        <Route path="/modalidad" element={<Modalidad />} />
+        <Route path="/formulario" element={<Formulario_validacion />} />
         <Route path="/formulario-preg" element={<Formulario_preg />} />
         <Route path="/formulario-verif" element={<Formulario_verif />} />
         <Route path="/institucion" element={<Institucion />} />
         <Route path="/login" element={<Login />} />
-        
+
         <Route path="/recuperar-contraseña" element={<Formulario_verif />} />
-      <Route path="/admin-noticias" element={<Admin_Noticias />} />  
-      <Route path="/admin-inicio" element={<Admin_Incio />} />
-      <Route path="/admin-modalidades" element={<Admin_Modalidades />} />
-<Route path="/aviso" element={<Aviso />} />
-      <Route path="/modalidades" element={<Inicio_Modalidades />} />
-        
+        <Route path="/admin-noticias" element={<Admin_Noticias />} />
+        <Route path="/admin-inicio" element={<Admin_Incio />} />
+        <Route path="/admin-modalidades" element={<Admin_Modalidades />} />
+        <Route path="/aviso" element={<Aviso />} />
+        <Route path="/modalidades" element={<Inicio_Modalidades />} />
+
       </Routes>
-      
+
       <Footer />
     </Router>
 
-    
+
   );
 }
 
