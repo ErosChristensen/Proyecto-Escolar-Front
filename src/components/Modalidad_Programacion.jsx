@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Modalidad_Programacion_Info from "./Modalidad_Programacion_Info.jsx";
+import Modalidad_Programacion_Banner from "./Modalidad_Programacion_Banner.jsx";
+import Modalidad_Programacion_Carrusel from "./Modalidad_Programacion_Carrusel.jsx";
 
 function Modalidad_Programacion() {
   const [selected, setSelected] = useState("introduccion");
@@ -16,7 +19,7 @@ function Modalidad_Programacion() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center mt-12 px-6 ">
+      <div className="flex flex-col items-center justify-center mt-12 px-6 h-130 ">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-10 text-center">
           PROGRAMACIÓN
         </h1>
@@ -72,6 +75,12 @@ function Modalidad_Programacion() {
           </div>
         </div>
       </div>
+        <div className="w-full">
+                 <Modalidad_Programacion_Info />
+                  <Modalidad_Programacion_Banner />
+                  <Modalidad_Programacion_Carrusel />
+              </div>
+            
     </>
   );
 }

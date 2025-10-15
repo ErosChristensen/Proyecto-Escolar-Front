@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 👈 import agregado
 import Fondo from "../assets/img/InicioModalidades.png";
 import Logo from "../assets/img/Logo_Modalidades.png";
 import Nav from "./Nav.jsx";
+import Modalidad_Programacion from "./Modalidad_Programacion.jsx"; // 👈 Importamos el componente
 
 function Modalidad() {
   const [selected, setSelected] = useState("");
-  const navigate = useNavigate(); // 👈 hook para navegar
 
   return (
     <>
       <Nav />
-      <div className="relative w-full flex flex-col justify-center items-center text-white overflow-hidden">
+
+      {/* Fondo principal */}
+      <div className="relative h-135 w-full flex flex-col justify-center items-center text-white overflow-hidden">
         <div
           className="w-full flex flex-col justify-center items-center relative"
           style={{
@@ -39,21 +40,27 @@ function Modalidad() {
                 ELECTROMECÁNICA
               </button>
 
-              {/* ✅ ESTE ES EL BOTÓN QUE NAVEGA */}
               <button
                 className={`px-10 py-4 rounded-md text-lg font-bold shadow-md transition ${
                   selected === "programacion"
                     ? "bg-green-800"
                     : "bg-green-600 hover:bg-green-700"
                 }`}
-                onClick={() => navigate("/modalidad-prog")} // 👈 navega a la ruta
+                onClick={() => setSelected("programacion")}
               >
                 PROGRAMACIÓN
               </button>
             </div>
           </div>
-        </div>  
+        </div>
       </div>
+
+      {/* 👇 Acá se muestra el componente según lo seleccionado */}
+      {selected === "programacion" && (
+        <div className="w-full">
+          <Modalidad_Programacion />
+        </div>
+      )}
     </>
   );
 }
