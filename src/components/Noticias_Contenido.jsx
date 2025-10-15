@@ -1,79 +1,72 @@
-import { useState, useEffect } from "react"; // Importamos hooks de React
-import Noticias_elegida from "./Noticias_elegida"; // Importamos el componente del modal (detalle de la noticia)
+import { useState, useEffect } from "react";
+import Noticias_elegida from "./Noticias_elegida";
 
 export default function Noticias_Contenido() {
-  // Estado para guardar las noticias traídas desde el backend
   const [noticias, setNoticias] = useState([]);
-
-  // Estado para guardar cuál noticia se seleccionó (para abrir el modal)
   const [noticiaSeleccionada, setNoticiaSeleccionada] = useState(null);
 
-  // Hook que se ejecuta una sola vez al montar el componente
-useEffect(() => {
-  const fetchNoticias = async () => {
-    try {
-      const res = await fetch("http://localhost:3000/api/noticias");
-      const data = await res.json();
+  useEffect(() => {
+    const fetchNoticias = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/noticias");
+        const data = await res.json();
 
-const normalizarNoticia = (n) => ({
-  ...n,
-  multimedia: [n.imagen1, n.imagen2, n.imagen3]
-    .filter(Boolean)
-    .map(path => `http://localhost:3000${path}`),
-});
+        const normalizarNoticia = (n) => {
+          const base = "http://localhost:3000";
+          return {
+            ...n,
+            multimedia: [n.imagen1, n.imagen2, n.imagen3, n.imagen4]
+              .filter(Boolean)
+              .map((img) => `${base}${img}`),
+          };
+        };
 
+        setNoticias((data.items || []).map(normalizarNoticia));
+      } catch (err) {
+        console.error("Error al cargar las noticias:", err);
+      }
+    };
 
-      setNoticias((data.items || []).map(normalizarNoticia)); // <- solo esto
-    } catch (err) {
-      console.error("Error al cargar las noticias:", err);
-    }
-  };
+    fetchNoticias();
+  }, []);
 
-  fetchNoticias();
-}, []);
+  function formatearFecha(fechaStr) {
+    const fecha = new Date(fechaStr);
+    const dia = fecha.getDate().toString().padStart(2, "0");
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, "0");
+    const anio = fecha.getFullYear();
+    return `${dia}-${mes}-${anio}`;
+  }
 
-// El array vacío significa que esto se ejecuta solo una vez
-// Función para dar formato a la fecha
-
-function formatearFecha(fechaStr) {
-  const fecha = new Date(fechaStr);
-  const dia = fecha.getDate().toString().padStart(2, "0");
-  const mes = (fecha.getMonth() + 1).toString().padStart(2, "0");
-  const anio = fecha.getFullYear();
-  return `${dia}-${mes}-${anio}`;
-}
   return (
     <>
-      {/* Contenedor de las tarjetas de noticias */}
-      <div className="flex flex-wrap justify-center gap-10 md:gap-24 mt-32 px-4 mb-40">
-        {/* Recorremos cada noticia y la mostramos en una tarjeta */}
+      <div className="flex flex-wrap justify-center gap-10 md:gap-24 mt-8 px-4 mb-40">
         {noticias.map((noti, idx) => (
           <div
-            key={noti.id || idx} // Usamos el ID de la noticia si existe, si no, el índice
+            key={noti.id || idx}
             className="bg-white rounded-lg shadow-md w-full sm:w-[22rem] flex flex-col overflow-hidden cursor-pointer"
-            onClick={() => setNoticiaSeleccionada(noti)} // Al hacer click, abrimos el modal con esa noticia
+            onClick={() => setNoticiaSeleccionada(noti)}
           >
-            {/* Mostramos la primera imagen del array multimedia */}
             <img
-             src={noti.multimedia?.[0]} alt={noti.titulo}
+              src={noti.multimedia?.[0]}
+              alt={noti.titulo}
               className="w-full h-44 object-cover bg-blue-100"
             />
-
-            {/* Contenido textual de la tarjeta */}
             <div className="p-5">
               <div className="font-bold text-lg mb-2">{noti.titulo}</div>
-              <div className="text-orange-600 font-bold text-sm mb-2">{formatearFecha(noti.fecha)}</div>
+              <div className="text-orange-600 font-bold text-sm mb-2">
+                {formatearFecha(noti.fecha)}
+              </div>
               <div className="text-gray-600 text-sm">{noti.subtitulo}</div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Si hay una noticia seleccionada, mostramos el componente modal */}
       {noticiaSeleccionada && (
         <Noticias_elegida
           noticia={noticiaSeleccionada}
-          onClose={() => setNoticiaSeleccionada(null)} // Al cerrar el modal, limpiamos la selección
+          onClose={() => setNoticiaSeleccionada(null)}
         />
       )}
     </>

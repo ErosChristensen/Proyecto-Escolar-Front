@@ -18,26 +18,29 @@ import Noticias_Inicio from './components/Noticias_Inicio'
 import Formulario_validacion from './components/Formulario_validacion.jsx'
 import Formulario_preg from './components/Formulario_preg.jsx'
 import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
+
 //Modalidades
 import Modalidad from './components/Modalidad.jsx'
 import Modalidad_Programacion from './components/Modalidad_Programacion.jsx'
+
 //Institucion
-import Institucion from './components/institucion'
+import Institucion from './components/Institucion'
 
 import Login from './components/login.jsx'
 import Admin_Incio from "./components/Admin_Inicio";
 import Admin_Noticias from "./components/Admin_Noticias.jsx";
 import Admin_Modalidades from "./components/Admin_Modalidades.jsx";
+import Admin_Historia from "./components/Admin_Historia.jsx";
+
 function App() {
   return (
     <Router>
       <Scrollear_Ventana_Arriba />
       <Header />
-      <Routes>
 
+      <Routes>
         <Route path="/" element={
           <>
-
             <Inicio_Principal />
             <Aviso />
             <Inicio_Novedades />
@@ -63,13 +66,12 @@ function App() {
         <Route path="/admin-modalidades" element={<Admin_Modalidades />} />
         <Route path="/aviso" element={<Aviso />} />
         <Route path="/modalidades" element={<Inicio_Modalidades />} />
-
+        <Route path="/admin-historia" element={<Admin_Historia />} />
       </Routes>
 
+      {/* 👇 Cerrar correctamente el fragmento */}
       <Footer />
     </Router>
-
-
   );
 }
 

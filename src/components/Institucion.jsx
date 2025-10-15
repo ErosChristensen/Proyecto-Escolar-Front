@@ -144,10 +144,9 @@ function Institucion() {
         </div>
 
         {/* BLOQUE DE VALORES */}
-        <section
-          className="relative bg-cover bg-center text-white text-center h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center mt-[100px] mb-[50px] px-4"
-          style={{ backgroundImage: "url('../assets/img/InicioBanner.png')" }}
-        >
+<section
+  className="relative bg-cover bg-center text-white text-center h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center mt-[100px] mb-[50px] "
+  style={{ backgroundImage: `url(${fondo})` }}>
           <div className="absolute inset-0 bg-black/45"></div>
           <div className="relative z-10 max-w-[900px] px-[10px]">
             <h2 className="text-[28px] sm:text-[36px] md:text-[40px] font-extrabold mb-[30px] leading-tight">
