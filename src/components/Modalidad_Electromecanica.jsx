@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Modalidad_Programacion_Info from "./Modalidad_Programacion_Info.jsx";
-import Modalidad_Programacion_Banner from "./Modalidad_Programacion_Banner.jsx";
-import Modalidad_Programacion_Carrusel from "./Modalidad_Programacion_Carrusel.jsx";
+import Modalidad_Electromecanica_Info from "./Modalidad_Electromecanica_Info.jsx";
+import Modalidad_Electromecanica_Banner from "./Modalidad_Electromecanica_Banner.jsx";
+import Modalidad_Electromecanica_Carrusel from "./Modalidad_Electromecanica_Carrusel.jsx";
 
-function Modalidad_Programacion() {
+function Modalidad_Electromecanica() {
   const [selected, setSelected] = useState("introduccion");
 
   const textos = {
@@ -21,7 +21,7 @@ function Modalidad_Programacion() {
     <>
       <div className="flex flex-col items-center justify-center px-4 sm:px-8 md:px-10 py-16 sm:py-20 lg:py-24 bg-gray-50 text-gray-800">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-8 sm:mb-12 text-center text-green-700">
-          PROGRAMACIÓN
+          ELECTROMECÁNICA
         </h1>
 
         {/* Contenedor principal */}
@@ -82,12 +82,12 @@ function Modalidad_Programacion() {
 
       {/* Otras secciones */}
       <div className="w-full">
-        <Modalidad_Programacion_Info />
-        <Modalidad_Programacion_Carrusel />
-        <Modalidad_Programacion_Banner />
+        <Modalidad_Electromecanica_Info />
+        <Modalidad_Electromecanica_Carrusel />
+        <Modalidad_Electromecanica_Banner />
       </div>
     </>
   );
 }
 
-export default Modalidad_Programacion;
+export default Modalidad_Electromecanica;
