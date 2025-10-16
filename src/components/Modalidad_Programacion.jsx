@@ -19,69 +19,73 @@ function Modalidad_Programacion() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center px-6 h-155 ">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-10 text-center">
+      <div className="flex flex-col items-center justify-center px-4 sm:px-8 md:px-10 py-16 sm:py-20 lg:py-24 bg-gray-50 text-gray-800">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-8 sm:mb-12 text-center text-green-700">
           PROGRAMACIÓN
         </h1>
 
-        <div className="flex flex-col md:flex-row gap-50 w-full max-w-5xl justify-center">
+        {/* Contenedor principal */}
+        <div className="flex flex-col md:flex-row w-full max-w-6xl gap-8 sm:gap-10 md:gap-12 lg:gap-16">
           {/* Botones laterales */}
-          <div className="flex flex-col space-y-2 w-full md:w-1/3">
+          <div className="flex flex-col w-full md:w-1/3 space-y-3 sm:space-y-4">
             <button
               onClick={() => setSelected("introduccion")}
-              className={`py-3 px-4 font-bold rounded-md border-2 transition ${
+              className={`py-3 sm:py-4 px-4 font-bold rounded-md border-2 transition text-sm sm:text-base md:text-lg ${
                 selected === "introduccion"
                   ? "bg-green-600 text-white border-green-600"
-                  : "bg-gray-200 text-gray-500 border-green-600 hover:bg-gray-300"
+                  : "bg-gray-200 text-gray-600 border-green-600 hover:bg-gray-300"
               }`}
             >
               INTRODUCCIÓN
             </button>
+
             <button
               onClick={() => setSelected("alcance")}
-              className={`py-3 px-4 font-bold rounded-md border-2 transition ${
+              className={`py-3 sm:py-4 px-4 font-bold rounded-md border-2 transition text-sm sm:text-base md:text-lg ${
                 selected === "alcance"
                   ? "bg-green-600 text-white border-green-600"
-                  : "bg-gray-200 text-gray-500 border-green-600 hover:bg-gray-300"
+                  : "bg-gray-200 text-gray-600 border-green-600 hover:bg-gray-300"
               }`}
             >
-              ALCANCE DEL TITULO
+              ALCANCE DEL TÍTULO
             </button>
+
             <button
               onClick={() => setSelected("talleres")}
-              className={`py-3 px-4 font-bold rounded-md border-2 transition ${
+              className={`py-3 sm:py-4 px-4 font-bold rounded-md border-2 transition text-sm sm:text-base md:text-lg ${
                 selected === "talleres"
                   ? "bg-green-600 text-white border-green-600"
-                  : "bg-gray-200 text-gray-500 border-green-600 hover:bg-gray-300"
+                  : "bg-gray-200 text-gray-600 border-green-600 hover:bg-gray-300"
               }`}
             >
               TALLERES PRINCIPALES
             </button>
+
             <button
               onClick={() => setSelected("porque")}
-              className={`py-3 px-4 font-bold rounded-md border-2 transition ${
+              className={`py-3 sm:py-4 px-4 font-bold rounded-md border-2 transition text-sm sm:text-base md:text-lg ${
                 selected === "porque"
                   ? "bg-green-600 text-white border-green-600"
-                  : "bg-gray-200 text-gray-500 border-green-600 hover:bg-gray-300"
+                  : "bg-gray-200 text-gray-600 border-green-600 hover:bg-gray-300"
               }`}
             >
               ¿POR QUÉ ELEGIRLA?
             </button>
           </div>
 
-          {/* Texto a la derecha */}
-          <div className="w-full md:w-2/3 text-gray-500 leading-relaxed text-justify">
+          {/* Texto descriptivo */}
+          <div className="w-full md:w-2/3 text-gray-700 leading-relaxed text-justify text-sm sm:text-base md:text-lg bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-md">
             {textos[selected]}
           </div>
         </div>
       </div>
-        <div className="w-full">
-                 <Modalidad_Programacion_Info />
-                  <Modalidad_Programacion_Carrusel />
-                  <Modalidad_Programacion_Banner />
-            
-              </div>
-            
+
+      {/* Otras secciones */}
+      <div className="w-full">
+        <Modalidad_Programacion_Info />
+        <Modalidad_Programacion_Carrusel />
+        <Modalidad_Programacion_Banner />
+      </div>
     </>
   );
 }
