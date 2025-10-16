@@ -12,6 +12,8 @@ import Inicio_Modalidades from './components/Inicio_Modalidades'
 import Inicio_Banner from './components/Inicio_Banner'
 import Inicio_Preguntas from './components/Inicio_Preguntas'
 import Aviso from './components/aviso'
+import Login from "./components/Login.jsx";
+
 
 //Noticias
 import Noticias_Inicio from './components/Noticias_Inicio'
@@ -26,7 +28,6 @@ import Modalidad_Programacion from './components/Modalidad_Programacion.jsx'
 //Institucion
 import Institucion from './components/Institucion'
 
-import Login from './components/login.jsx'
 import Admin_Incio from "./components/Admin_Inicio";
 import Admin_Noticias from "./components/Admin_Noticias.jsx";
 import Admin_Modalidades from "./components/Admin_Modalidades.jsx";
@@ -59,6 +60,7 @@ function App() {
         <Route path="/formulario-verif" element={<Formulario_verif />} />
         <Route path="/institucion" element={<Institucion />} />
         <Route path="/login" element={<Login />} />
+
 
         <Route path="/recuperar-contraseña" element={<Formulario_verif />} />
         <Route path="/admin-noticias" element={<Admin_Noticias />} />

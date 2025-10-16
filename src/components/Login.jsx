@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
-import Modal from "../components/Modal";      
+import Modal from "../components/Modal";
 import Modalrecuperacion from "../components/Modalrecuperscion";
 
 function Login() {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate(); // 👈 Para redirigir al panel
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,26 +15,33 @@ function Login() {
     const gmail = formData.get("gmail");
     const contraseña = formData.get("contraseña");
 
-    // guardar en localStorage
-    localStorage.setItem("gmail", gmail);
-    localStorage.setItem("contraseña", contraseña);
-
     try {
-      const res = await fetch("http://localhost:3000/formulario/pedir-codigo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ gmail, contraseña }),
-      });
+      const res = await fetch("http://localhost:3000/api/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+  usuario: gmail,        // debería ser "admin@tucolegio.com"
+  contraseña: contraseña // debe tener al menos 8 caracteres
+}),
+
+});
+
 
       const data = await res.json();
+
       if (res.ok) {
-        alert("Código enviado al mail");
+        // ✅ Guardar en localStorage si querés usar después
+        localStorage.setItem("gmail", gmail);
+        if (data.token) localStorage.setItem("token", data.token);
+
+      
+        navigate("/admin-inicio"); // 👈 Redirige al panel admin
       } else {
-        alert(data.error);
+        alert(data.error || "Credenciales incorrectas ❌");
       }
     } catch (err) {
       console.error(err);
-      alert("Error solicitando el código");
+      alert("Error conectando con el servidor 😓");
     }
   };
 
@@ -40,7 +49,6 @@ function Login() {
     <>
       <Nav />
       <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center mt-[-100px] px-10 sm:px-10 lg:px-20 py-10 gap-10">
-        {/* Texto a la izquierda */}
         <div className="lg:w-1/2 max-w-md text-center lg:text-left">
           <h1 className="text-4xl font-bold text-orange-500 mb-4">
             ¡Bienvenido al perfil administrador!
@@ -53,7 +61,6 @@ function Login() {
           </p>
         </div>
 
-        {/* Formulario a la derecha */}
         <div className="lg:w-1/2 max-w-md w-full bg-white rounded-xl shadow-xl p-6 sm:p-8">
           <form onSubmit={handleSubmit}>
             <label htmlFor="gmail" className="block mb-2 font-bold text-gray-800">
@@ -67,10 +74,7 @@ function Login() {
               className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400"
             />
 
-            <label
-              htmlFor="contraseña"
-              className="block mb-2 font-bold text-gray-800"
-            >
+            <label htmlFor="contraseña" className="block mb-2 font-bold text-gray-800">
               Contraseña:
             </label>
             <input
@@ -89,12 +93,11 @@ function Login() {
               Continuar
             </button>
 
-            {/* Párrafo de “¿Olvidaste tu contraseña?” */}
             <p className="text-center text-gray-600 mt-4">
               ¿Olvidaste tu contraseña?{" "}
               <button
                 type="button"
-                onClick={() => setShowModal(true)}   // 👈 esto abre el modal
+                onClick={() => setShowModal(true)}
                 className="text-orange-500 font-semibold hover:underline hover:text-orange-600 transition"
               >
                 Recuperarla aquí
@@ -104,8 +107,7 @@ function Login() {
         </div>
       </div>
 
-      {/* Modal de recuperación */}
-      {showModal && (                            // 👈 forma más segura de renderizarlo
+      {showModal && (
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
           <Modalrecuperacion />
         </Modal>
@@ -115,3 +117,5 @@ function Login() {
 }
 
 export default Login;
+
+
