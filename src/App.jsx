@@ -12,6 +12,7 @@ import Inicio_Modalidades from './components/Inicio_Modalidades'
 import Inicio_Banner from './components/Inicio_Banner'
 import Inicio_Preguntas from './components/Inicio_Preguntas'
 import Aviso from './components/aviso'
+import AvisoModalidad from "./components/avisoModalidad"
 
 //Noticias
 import Noticias_Inicio from './components/Noticias_Inicio'
@@ -44,6 +45,7 @@ function App() {
           <>
             <Inicio_Principal />
             <Aviso />
+            <AvisoModalidad />
             <Inicio_Novedades />
             <Inicio_Modalidades />
             <Inicio_Talleres />
