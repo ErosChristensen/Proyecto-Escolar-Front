@@ -12,9 +12,8 @@ import Inicio_Modalidades from './components/Inicio_Modalidades'
 import Inicio_Banner from './components/Inicio_Banner'
 import Inicio_Preguntas from './components/Inicio_Preguntas'
 import Aviso from './components/aviso'
+import AvisoModalidad from "./components/avisoModalidad"
 import Login from "./components/Login.jsx";
-
-
 //Noticias
 import Noticias_Inicio from './components/Noticias_Inicio'
 import Formulario_validacion from './components/Formulario_validacion.jsx'
@@ -45,6 +44,7 @@ function App() {
           <>
             <Inicio_Principal />
             <Aviso />
+            <AvisoModalidad />
             <Inicio_Novedades />
             <Inicio_Modalidades />
             <Inicio_Talleres />

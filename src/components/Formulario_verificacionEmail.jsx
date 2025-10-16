@@ -1,70 +1,80 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function VerificacionCodigoModal({ onClose }) {
   const navigate = useNavigate();
-  const [codigo, setCodigo] = useState(['', '', '', '', '', '']);
+  const [codigo, setCodigo] = useState(["", "", "", "", "", ""]);
   const inputsRef = useRef([]);
 
   useEffect(() => {
     inputsRef.current[0].focus();
   }, []);
 
-  const handleChange = (e, index) => {
-    const value = e.target.value.replace(/\D/, '');
-    if (!value) return;
+  const toastCustom = (msg, type = "error") => {
+    toast(msg, {
+      type,
+      position: "top-center",
+      autoClose: 5000,
+      transition: Slide,
+      className: "bg-white text-gray-800 shadow-2xl border-l-8 p-5 rounded-2xl text-lg font-bold",
+      bodyClassName: type === "success" ? "text-green-700" : "text-red-600",
+    });
+  };
 
+  const handleChange = (e, index) => {
+    const value = e.target.value.replace(/\D/, "");
+    if (!value) return;
     const newCodigo = [...codigo];
     newCodigo[index] = value;
     setCodigo(newCodigo);
-
-    if (index < 5) {
-      inputsRef.current[index + 1].focus();
-    }
+    if (index < 5) inputsRef.current[index + 1].focus();
   };
 
   const handleKeyDown = (e, index) => {
-    if (e.key === 'Backspace' && !codigo[index] && index > 0) {
+    if (e.key === "Backspace" && !codigo[index] && index > 0) {
       const newCodigo = [...codigo];
-      newCodigo[index - 1] = '';
+      newCodigo[index - 1] = "";
       setCodigo(newCodigo);
       inputsRef.current[index - 1].focus();
     }
   };
 
   const handleVerificar = async () => {
-    const codigoFinal = codigo.join('');
+    const codigoFinal = codigo.join("");
     const dni = localStorage.getItem("dni");
 
     try {
       const res = await fetch("http://localhost:3000/formulario/validar-codigo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ dni, codigo: codigoFinal })
+        body: JSON.stringify({ dni, codigo: codigoFinal }),
       });
 
       const data = await res.json();
       if (res.ok) {
+        toastCustom("Código verificado con éxito", "success");
         localStorage.setItem("mail", data.mail);
-        navigate('/formulario-preg');
+        setTimeout(() => navigate("/formulario-preg"), 1500);
       } else {
-        alert(data.error);
+        toastCustom(data.error || "Código incorrecto");
       }
     } catch (err) {
       console.error(err);
-      alert("Error validando el código");
+      toastCustom("Error validando el código");
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-brightness-75">
-      <div className="relative bg-white w-11/12 max-w-md p-6 rounded-xl shadow-xl">
-        <button className="absolute top-3 right-3 text-gray-600 hover:text-gray-800 font-bold text-lg" onClick={onClose}>
+      <div className="relative bg-white w-11/12 max-w-md p-8 rounded-2xl shadow-2xl">
+        <button className="absolute top-3 right-3 text-gray-600 hover:text-gray-800 font-bold text-xl" onClick={onClose}>
           ×
         </button>
 
-        <h2 className="text-2xl font-bold text-orange-500 mb-4 text-center">Verificación de correo</h2>
-        <p className="text-gray-700 mb-6 text-center">Ingresa el código de 6 dígitos que te enviamos por correo.</p>
+        <h2 className="text-3xl font-bold text-orange-500 mb-4 text-center">Verificación de correo</h2>
+        <p className="text-gray-700 mb-6 text-center text-lg">Ingresa el código de 6 dígitos que te enviamos por correo.</p>
 
         <div className="flex justify-between mb-6">
           {codigo.map((num, i) => (
@@ -75,14 +85,18 @@ function VerificacionCodigoModal({ onClose }) {
               value={num}
               onChange={(e) => handleChange(e, i)}
               onKeyDown={(e) => handleKeyDown(e, i)}
-              className="w-12 h-12 text-center text-lg font-bold border rounded-lg focus:ring-2 focus:ring-orange-400"
+              className="w-14 h-14 text-center text-xl font-bold border-2 border-gray-300 rounded-lg focus:ring-4 focus:ring-orange-400 transition"
             />
           ))}
         </div>
 
-        <button onClick={handleVerificar} className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition">
+        <button
+          onClick={handleVerificar}
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-2xl font-bold text-lg shadow-lg transition-all"
+        >
           Verificar
         </button>
+      <ToastContainer />
       </div>
     </div>
   );
