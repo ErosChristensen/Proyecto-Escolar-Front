@@ -1,10 +1,10 @@
 import React from "react";
 import { useInicio } from "../hooks/useInicio";
 // Importamos los íconos de los talleres
-import Carpinteria from "../assets/icons/InicioTalleres1.png";
-import Herreria from "../assets/icons/InicioTalleres2.png";
-import Electricidad from "../assets/icons/InicioTalleres3.png";
-import Hojalateria from "../assets/icons/InicioTalleres4.png";
+import Carpinteria from "../assets/img/herramientas.png";
+import Herreria from "../assets/img/herreria.png";
+import Electricidad from "../assets/img/enchufe.png";
+import Hojalateria from "../assets/img/tuerca.png";
 
 function Inicio_Talleres() {
   // Traemos los datos del backend

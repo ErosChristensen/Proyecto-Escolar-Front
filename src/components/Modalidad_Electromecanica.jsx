@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Modalidad_Programacion_Info from "./Modalidad_Programacion_Info.jsx";
-import Modalidad_Programacion_Banner from "./Modalidad_Programacion_Banner.jsx";
-import Modalidad_Programacion_Carrusel from "./Modalidad_Programacion_Carrusel.jsx";
+import Modalidad_Electromecanica_Info from "./Modalidad_Electromecanica_info.jsx";
+import Modalidad_Electromecanica_Carrusel from "./Modalidad_Electromecanica_Carrusel.jsx";
+import Modalidad_Electromecanica_Banner from "./Modalidad_Electromecanica_Banner.jsx";
+import Modalidad from "./Modalidad.jsx";
 
 function Modalidad_Programacion() {
   const [selected, setSelected] = useState("introduccion");
@@ -21,7 +22,7 @@ function Modalidad_Programacion() {
     <>
       <div className="flex flex-col items-center justify-center px-6 h-155 ">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-10 text-center">
-          PROGRAMACIÓN
+          ELECTROMECANICA
         </h1>
 
         <div className="flex flex-col md:flex-row gap-50 w-full max-w-5xl justify-center">
@@ -76,10 +77,9 @@ function Modalidad_Programacion() {
         </div>
       </div>
         <div className="w-full">
-                 <Modalidad_Programacion_Info />
-                  <Modalidad_Programacion_Carrusel />
-                  <Modalidad_Programacion_Banner />
-            
+              <Modalidad_Electromecanica_Info />
+            <Modalidad_Electromecanica_Carrusel/>
+            <Modalidad_Electromecanica_Banner />
               </div>
             
     </>

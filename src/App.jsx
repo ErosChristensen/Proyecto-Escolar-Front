@@ -22,6 +22,7 @@ import Formulario_verif from './components/Formulario_verificacionEmail.jsx'
 //Modalidades
 import Modalidad from './components/Modalidad.jsx'
 import Modalidad_Programacion from './components/Modalidad_Programacion.jsx'
+import Modalidad_Electromecanica from './components/Modalidad_Electromecanica.jsx'
 
 //Institucion
 import Institucion from './components/Institucion'
@@ -52,20 +53,35 @@ function App() {
         } />
 
         <Route path="/noticias" element={<Noticias_Inicio />} />
-        <Route path="/modalidad" element={<Modalidad />} />
-        <Route path="/modalidad-prog" element={<Modalidad_Programacion />} />
-        <Route path="/formulario" element={<Formulario_validacion />} />
-        <Route path="/formulario-preg" element={<Formulario_preg />} />
-        <Route path="/formulario-verif" element={<Formulario_verif />} />
-        <Route path="/institucion" element={<Institucion />} />
-        <Route path="/login" element={<Login />} />
 
+        <Route path="/" element={<Inicio_Modalidades />} />
+        <Route path="/modalidad" element={<Modalidad />} />
+        
+        <Route path="/modalidad-prog" element={<Modalidad_Programacion />} />
+        <Route path="/modalidad-electro" element={<Modalidad_Electromecanica />} />
+        
+        <Route path="/formulario" element={<Formulario_validacion />} />
+        
+        <Route path="/formulario-preg" element={<Formulario_preg />} />
+        
+        <Route path="/formulario-verif" element={<Formulario_verif />} />
+        
+        <Route path="/institucion" element={<Institucion />} />
+        
+        <Route path="/login" element={<Login />} />
+        
         <Route path="/recuperar-contraseña" element={<Formulario_verif />} />
+        
         <Route path="/admin-noticias" element={<Admin_Noticias />} />
+        
         <Route path="/admin-inicio" element={<Admin_Incio />} />
+        
         <Route path="/admin-modalidades" element={<Admin_Modalidades />} />
+        
         <Route path="/aviso" element={<Aviso />} />
+        
         <Route path="/modalidades" element={<Inicio_Modalidades />} />
+        
         <Route path="/admin-historia" element={<Admin_Historia />} />
       </Routes>
 

@@ -3,7 +3,7 @@ import Img1 from "../assets/img/InicioNovedades1.png";
 import Img2 from "../assets/img/InicioNovedades2.png";
 import Img3 from "../assets/img/InicioNovedades3.png";
 
-function Modalidad_Programacion_Carrusel() {
+function Modalidad_Electromecanica_Carrusel() {
   const images = [Img1, Img2, Img3];
   const [index, setIndex] = useState(0);
 
@@ -25,4 +25,4 @@ function Modalidad_Programacion_Carrusel() {
   );
 }
 
-export default Modalidad_Programacion_Carrusel;
+export default Modalidad_Electromecanica_Carrusel;
