@@ -15,12 +15,25 @@ function Modalidad_Electromecanica_Carrusel() {
   }, [images.length]);
 
   return (
-    <div className="relative w-full max-w-5xl mt-20 mb-20 mx-auto overflow-hidden rounded-xl mt-20 flex justify-center">
+    <div className="relative w-full max-w-5xl mt-20 mb-20 mx-auto overflow-hidden flex flex-col items-center">
+      {/* Imagen del carrusel */}
       <img
         src={images[index]}
         alt={`slide ${index}`}
         className="w-full h-[500px] object-cover transition-all duration-700"
       />
+
+      {/* Puntos indicadores (idénticos al de programación) */}
+      <div className="flex justify-center mt-4 space-x-2">
+        {images.map((_, i) => (
+          <span
+            key={i}
+            className={`h-3 w-3 rounded-full transition-all duration-300 ${
+              i === index ? "bg-green-600 scale-110" : "bg-gray-300"
+            }`}
+          ></span>
+        ))}
+      </div>
     </div>
   );
 }
