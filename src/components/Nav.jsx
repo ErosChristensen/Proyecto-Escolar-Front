@@ -39,7 +39,7 @@ function Nav() {
         <nav className="flex flex-col gap-4 mt-4 md:hidden font-semibold text-lg">
           <Link to="/" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Inicio</Link>
           <Link to="/noticias" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Noticias</Link>
-          <Link to="/modalidades" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Modalidades</Link>
+          <Link to="/modalidad" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Modalidades</Link>
           <Link to="/institucion" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Institución</Link>
         </nav>
       )}
